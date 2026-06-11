@@ -1,0 +1,18 @@
+# Netlify configuration — GrowthBound Media
+# Static site, no build step. Netlify serves the files in this folder as-is.
+
+[build]
+  publish = "."
+  command = ""
+
+# --- Security headers (applied to every page) ---
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Netlify Forms: the contact form (name="contact") is detected automatically
+# from the static HTML at deploy time. Submissions appear under
+# Site settings → Forms, and can email you via Form notifications.
