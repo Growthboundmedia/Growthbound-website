@@ -16,3 +16,18 @@
 # Netlify Forms: the contact form (name="contact") is detected automatically
 # from the static HTML at deploy time. Submissions appear under
 # Site settings → Forms, and can email you via Form notifications.
+
+# --- Redirects ---
+# Old pitch page (/landing) is retired in favour of the new deck (/pitch).
+# Forward any existing /landing links so they don't 404.
+[[redirects]]
+  from = "/landing"
+  to = "/pitch/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/landing/*"
+  to = "/pitch/"
+  status = 301
+  force = true

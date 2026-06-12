@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GrowthBound — The Pitch</title>
+<meta name="description" content="GrowthBound — a short deck on websites that win builders more of the right jobs. Newcastle." />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0b0f0d; --bg-2:#111714; --panel:#131a16;
+    --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.17);
+    --ink:#f2f5f3; --mut:#9aa49e; --faint:#6c756f;
+    --green:#16b883; --green-2:#4cdba4; --green-deep:#0c6f4d;
+    --green-grad:linear-gradient(135deg,#4cdba4 0%,#16b883 100%);
+    --green-soft:rgba(22,184,131,.12);
+    --display:"Plus Jakarta Sans",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"Space Mono",ui-monospace,monospace;
+    --maxw:1080px;
+    --cal:"https://calendly.com/daniel-growthbound/growthbound-demo-call?hide_gdpr_banner=1&background_color=0e1411&text_color=f2f5f3&primary_color=16b883";
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-snap-type:y mandatory;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.03;letter-spacing:-.03em}
+  ::selection{background:var(--green);color:#06120c}
+
+  .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green-2);display:inline-flex;align-items:center;gap:11px}
+  .label::before{content:"";width:24px;height:1px;background:var(--green)}
+
+  .btn{font-family:var(--display);font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:transform .16s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;background:none}
+  .btn .arr{transition:transform .16s ease}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn-primary{background:var(--green-grad);color:#06120c;box-shadow:0 14px 34px -14px rgba(22,184,131,.6)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(22,184,131,.7)}
+  .btn-ghost{border-color:var(--line-2);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--green-2);color:var(--green-2);transform:translateY(-2px)}
+
+  /* ---------- chrome: topbar, rail, counter ---------- */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,4vw,46px);pointer-events:none}
+  .topbar > *{pointer-events:auto}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand-logo{height:26px;width:188px;background:var(--green-grad);-webkit-mask:url(/assets/logo.png) left center/contain no-repeat;mask:url(/assets/logo.png) left center/contain no-repeat}
+  .topbar .btn{padding:10px 18px;font-size:.85rem}
+
+  .rail{position:fixed;top:50%;right:clamp(14px,2.4vw,30px);transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:14px}
+  .rail button{width:9px;height:9px;border-radius:50%;background:var(--line-2);border:none;cursor:pointer;padding:0;transition:.2s ease}
+  .rail button:hover{background:var(--mut);transform:scale(1.25)}
+  .rail button.on{background:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+
+  .counter{position:fixed;bottom:22px;right:clamp(20px,4vw,46px);z-index:40;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;color:var(--faint)}
+  .counter b{color:var(--ink);font-weight:700}
+
+  /* ---------- slides ---------- */
+  .slide{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;position:relative;padding:96px clamp(20px,4vw,46px) 84px}
+  .slide .inner{width:100%;max-width:var(--maxw);margin:0 auto}
+  .slide::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+  /* per-slide soft green wash, alternating corners */
+  #cover::after{background:radial-gradient(48% 46% at 78% 28%,var(--green-soft),transparent 70%)}
+  #proof::after,#maths::after,#book::after{background:radial-gradient(46% 48% at 20% 30%,var(--green-soft),transparent 70%)}
+  .alt{background:var(--bg-2)}
+
+  .lead{font-size:clamp(1.05rem,.95rem + .6vw,1.3rem);color:var(--mut);max-width:54ch;line-height:1.6}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .slide.active .rv{opacity:1;transform:none}
+  .slide.active .rv.d1{transition-delay:.08s}.slide.active .rv.d2{transition-delay:.16s}
+  .slide.active .rv.d3{transition-delay:.24s}.slide.active .rv.d4{transition-delay:.32s}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  /* cover */
+  #cover .recall{font-family:var(--mono);font-size:.8rem;color:var(--mut);margin:20px 0 0}
+  #cover h1{font-size:clamp(2.6rem,6.4vw,5.2rem);margin:18px 0 22px;max-width:16ch}
+  #cover h1 em{font-style:normal;background:var(--green-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  #cover .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+  .hint{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
+  .hint .dot{width:1px;height:30px;background:linear-gradient(var(--green),transparent);animation:fall 1.8s ease-in-out infinite}
+  @keyframes fall{0%{opacity:0;transform:translateY(-8px)}40%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+
+  /* section heading */
+  .shead h2{font-size:clamp(1.9rem,4.2vw,3.4rem);margin:18px 0;max-width:20ch}
+  .shead h2 em{font-style:normal;color:var(--green-2)}
+
+  /* problem cards */
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+  .tcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px}
+  .tcard .n{font-family:var(--mono);font-size:.74rem;color:var(--green-2);letter-spacing:.1em}
+  .tcard h3{font-size:1.18rem;font-weight:700;margin:14px 0 8px}
+  .tcard p{font-size:.95rem;color:var(--mut)}
+  @media (max-width:760px){.trio{grid-template-columns:1fr}}
+
+  /* what you get */
+  .getgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;margin-top:34px}
+  .feat{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+  .feat .t{font-family:var(--mono);color:var(--green-2);font-size:.78rem;padding-top:3px;min-width:30px}
+  .feat h3{font-size:1.02rem;font-weight:700;font-family:var(--display)}
+  .feat p{font-size:.9rem;color:var(--mut);margin-top:2px}
+  @media (max-width:760px){.getgrid{grid-template-columns:1fr;gap:0}}
+
+  /* proof */
+  .proofgrid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,56px);align-items:center;margin-top:30px}
+  .frame{border:1px solid var(--line-2);border-radius:12px;overflow:hidden;background:#0a0c0b;box-shadow:0 40px 80px -36px rgba(0,0,0,.8)}
+  .frame-bar{display:flex;align-items:center;gap:7px;padding:11px 13px;border-bottom:1px solid var(--line);background:#0d100e}
+  .frame-bar i{width:10px;height:10px;border-radius:50%;background:#2c332e}
+  .frame-bar span{margin-left:9px;font-family:var(--mono);font-size:.68rem;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .frame-embed{position:relative;aspect-ratio:16/11;overflow:hidden;background:#fff}
+  .frame-embed iframe{position:absolute;top:0;left:0;width:100%;height:780px;border:0;pointer-events:none}
+  .proof-note{font-family:var(--mono);font-size:.86rem;color:var(--mut);line-height:1.7;border-left:2px solid var(--green);padding-left:18px;margin-top:24px}
+
+  /* maths */
+  #maths{text-align:center}
+  #maths .inner{max-width:900px}
+  #maths .big{font-size:clamp(2.1rem,5.2vw,3.8rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin:20px auto;max-width:18ch}
+  #maths .big em{font-style:normal;background:var(--green-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  #maths .lead{margin:0 auto}
+  .stats{display:inline-flex;align-items:center;gap:clamp(22px,5vw,50px);margin-top:40px}
+  .stats .s .num{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.02em}
+  .stats .s .cap{font-family:var(--mono);font-size:.72rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+  .stats .vs{font-family:var(--mono);color:var(--faint)}
+  .stats .s:last-child .num{color:var(--green-2)}
+  @media (max-width:600px){.stats{flex-direction:column;gap:18px}}
+
+  /* process */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+  .pstep{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 20px}
+  .pstep .n{font-family:var(--mono);font-size:.76rem;color:var(--green-2);letter-spacing:.08em}
+  .pstep h3{font-size:1.05rem;font-weight:700;margin:12px 0 7px}
+  .pstep p{font-size:.88rem;color:var(--mut)}
+  @media (max-width:780px){.steps{grid-template-columns:1fr 1fr}}
+  @media (max-width:460px){.steps{grid-template-columns:1fr}}
+  .ownnote{margin-top:28px;font-family:var(--mono);font-size:.88rem;color:var(--mut);line-height:1.7;border-left:2px solid var(--green);padding-left:18px;max-width:60ch}
+  .ownnote strong{font-family:var(--display);font-weight:700;color:var(--green-2)}
+
+  /* pricing */
+  .quote{margin-top:34px;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:var(--panel)}
+  .qhead{display:flex;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .qline{display:grid;grid-template-columns:1fr auto;gap:18px;padding:22px 24px;border-bottom:1px solid var(--line);align-items:start}
+  .qline:last-of-type{border-bottom:none}
+  .qline h3{font-family:var(--display);font-weight:700;font-size:1.2rem}
+  .qline p{font-size:.88rem;color:var(--mut);margin-top:5px;max-width:46ch}
+  .qline .amt{text-align:right;white-space:nowrap}
+  .qline .amt .num{font-family:var(--display);font-weight:800;font-size:1.6rem;letter-spacing:-.02em}
+  .qline .amt .per{font-family:var(--mono);font-size:.68rem;color:var(--faint);text-transform:uppercase;letter-spacing:.06em}
+  .qfoot{padding:16px 24px;background:var(--green-grad);color:#06120c;font-family:var(--display);font-weight:700;font-size:.95rem}
+  @media (max-width:560px){.qline{grid-template-columns:1fr}.qline .amt{text-align:left}}
+
+  /* book */
+  #book .bookgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,56px);align-items:center;margin-top:8px}
+  #book h2{font-size:clamp(2rem,4.4vw,3.2rem);max-width:16ch}
+  #book h2 em{font-style:normal;color:var(--green-2)}
+  #book .contact{margin-top:26px;font-family:var(--mono);font-size:.85rem;color:var(--mut);display:flex;flex-direction:column;gap:9px}
+  #book .contact a{color:var(--ink);border-bottom:1px solid var(--green);width:fit-content;padding-bottom:1px}
+  .calwrap{border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:#0e1411;min-height:520px}
+  @media (max-width:860px){#book .bookgrid{grid-template-columns:1fr}}
+
+  footer{padding:26px 0;text-align:center;font-family:var(--mono);font-size:.68rem;color:var(--faint);letter-spacing:.08em;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<!-- CHROME -->
+<div class="topbar">
+  <a class="brand" href="/" aria-label="GrowthBound home"><span class="brand-logo" role="img" aria-label="GrowthBound"></span></a>
+  <a class="btn btn-primary" href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/daniel-growthbound/growthbound-demo-call?hide_gdpr_banner=1&background_color=0e1411&text_color=f2f5f3&primary_color=16b883'});return false;">Book a call <span class="arr">→</span></a>
+</div>
+
+<div class="rail" id="rail" aria-hidden="true"></div>
+<div class="counter"><b id="cnum">01</b> / 08</div>
+
+<!-- 01 COVER -->
+<section class="slide active" id="cover" data-name="Intro">
+  <div class="inner">
+    <span class="label rv">GrowthBound · The pitch</span>
+    <p class="recall rv d1">Websites for builders &amp; trades — Newcastle.</p>
+    <h1 class="rv d1">Websites that win builders <em>more of the right jobs.</em></h1>
+    <p class="lead rv d2">A two-minute walkthrough of what I build, how it works, and exactly what it costs. No fluff.</p>
+    <div class="cta rv d3">
+      <a class="btn btn-primary" href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/daniel-growthbound/growthbound-demo-call?hide_gdpr_banner=1&background_color=0e1411&text_color=f2f5f3&primary_color=16b883'});return false;">Book a call <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#proof">See a live site</a>
+    </div>
+  </div>
+  <div class="hint"><span class="dot"></span>Scroll</div>
+</section>
+
+<!-- 02 PROBLEM -->
+<section class="slide alt" id="problem" data-name="The problem">
+  <div class="inner">
+    <div class="shead">
+      <span class="label rv">01 — The problem</span>
+      <h2 class="rv d1">Word-of-mouth has a ceiling. <em>Google doesn't.</em></h2>
+      <p class="lead rv d2">Your best work already speaks for itself. The trouble is the customer who's never met you — deciding between you and the next builder right now, on their phone.</p>
+    </div>
+    <div class="trio">
+      <div class="tcard rv d2"><span class="n">01</span><h3>They check you first</h3><p>Before anyone calls, they look you up. No site — or a dated one — and you've lost the job before the quote.</p></div>
+      <div class="tcard rv d3"><span class="n">02</span><h3>Tidy beats good</h3><p>The builder who looks more professional online wins work off better tradies every day. Fair or not, that's the game.</p></div>
+      <div class="tcard rv d4"><span class="n">03</span><h3>Referrals leak</h3><p>Someone recommends you, they search, they can't find you, they ring whoever turns up first. That's money walking.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 WHAT YOU GET -->
+<section class="slide" id="get" data-name="What you get">
+  <div class="inner">
+    <div class="shead">
+      <span class="label rv">02 — What you get</span>
+      <h2 class="rv d1">A proper site that does the <em>chasing for you.</em></h2>
+    </div>
+    <div class="getgrid">
+      <div class="feat rv d1"><span class="t">01</span><div><h3>A gallery of your work</h3><p>Real photos of real jobs — the thing that closes a builder's customer.</p></div></div>
+      <div class="feat rv d2"><span class="t">02</span><div><h3>Clear services &amp; areas</h3><p>What you do and where, so the right people know they've found the right tradie.</p></div></div>
+      <div class="feat rv d2"><span class="t">03</span><div><h3>Reviews &amp; proof</h3><p>Trust built in, so they're sold before they pick up the phone.</p></div></div>
+      <div class="feat rv d3"><span class="t">04</span><div><h3>Quote form &amp; click-to-call</h3><p>Every visit has one job: get them to ask for a quote. On mobile, one tap.</p></div></div>
+      <div class="feat rv d3"><span class="t">05</span><div><h3>Fast, built for phones</h3><p>Most people see it on a phone on a worksite. It's built for that first.</p></div></div>
+      <div class="feat rv d4"><span class="t">06</span><div><h3>You stay on the tools</h3><p>Send a few photos and the basics. I handle the build, words, setup and hosting.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 PROOF -->
+<section class="slide alt" id="proof" data-name="Proof">
+  <div class="inner">
+    <div class="proofgrid">
+      <div class="frame rv">
+        <div class="frame-bar"><i></i><i></i><i></i><span>cedarandstonehomes.com.au</span></div>
+        <div class="frame-embed"><iframe src="https://beamish-paletas-c912b9.netlify.app/" loading="lazy" scrolling="no" tabindex="-1" title="Cedar &amp; Stone Homes — built by GrowthBound"></iframe></div>
+      </div>
+      <div>
+        <span class="label rv d1">03 — Proof</span>
+        <h2 class="rv d1" style="font-size:clamp(1.8rem,3.8vw,2.9rem);margin:16px 0">Here's one I built, end to end.</h2>
+        <p class="lead rv d2">Cedar &amp; Stone Homes — a real, full build for a Newcastle home builder. The gallery, the quote form, the lot. It's live; have a click around.</p>
+        <div class="rv d3" style="margin-top:26px"><a class="btn btn-primary" href="https://beamish-paletas-c912b9.netlify.app/" target="_blank" rel="noopener">Open the live site <span class="arr">↗</span></a></div>
+        <p class="proof-note rv d4">Not my first rodeo — I launched a local gym from scratch: site, ads, opening event, real bodies through the door. Same playbook, pointed at builders now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 MATHS -->
+<section class="slide" id="maths" data-name="The maths">
+  <div class="inner">
+    <span class="label rv" style="justify-content:center">04 — The maths</span>
+    <p class="big rv d1">One extra job and it's <em>paid for itself</em> — several times over.</p>
+    <p class="lead rv d2">A single build can be worth tens of thousands. The whole site costs less than most quotes you write. It only has to land you one to be the best money you spend this year.</p>
+    <div class="stats rv d3">
+      <div class="s"><div class="num">$2,250</div><div class="cap">one-time for the site</div></div>
+      <span class="vs">vs</span>
+      <div class="s"><div class="num">$10k+</div><div class="cap">a single job you win</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 PROCESS -->
+<section class="slide alt" id="process" data-name="How it works">
+  <div class="inner">
+    <div class="shead">
+      <span class="label rv">05 — How it works</span>
+      <h2 class="rv d1">Start to finish, <em>I handle it.</em></h2>
+      <p class="lead rv d2">Four steps, mostly mine. Most builds go live in weeks, not months.</p>
+    </div>
+    <div class="steps">
+      <div class="pstep rv d1"><span class="n">STEP 01</span><h3>Quick chat</h3><p>You tell me about the business and the jobs you want more of.</p></div>
+      <div class="pstep rv d2"><span class="n">STEP 02</span><h3>You send photos</h3><p>A few good shots and the basics. That's your whole job done.</p></div>
+      <div class="pstep rv d3"><span class="n">STEP 03</span><h3>You review it</h3><p>I build it, you look it over, we tweak anything you want changed.</p></div>
+      <div class="pstep rv d4"><span class="n">STEP 04</span><h3>It goes live</h3><p>I host it, keep it updated and secure. You start getting found.</p></div>
+    </div>
+    <p class="ownnote rv d4"><strong>And it's yours.</strong> I handle the work, but you own the site, the domain and the content — 100%. No lock-in, ever.</p>
+  </div>
+</section>
+
+<!-- 07 PRICING -->
+<section class="slide" id="pricing" data-name="Pricing">
+  <div class="inner">
+    <div class="shead">
+      <span class="label rv">06 — Straight pricing</span>
+      <h2 class="rv d1">No retainers, no mystery. <em>Here's the lot.</em></h2>
+    </div>
+    <div class="quote rv d2">
+      <div class="qhead"><span>Item</span><span>Cost</span></div>
+      <div class="qline"><div><h3>Website build</h3><p>The full site, designed and built for you. One-time — half to start, half when it's done and you're happy.</p></div><div class="amt"><div class="num">$2,250</div><div class="per">one-time · 50 / 50</div></div></div>
+      <div class="qline"><div><h3>Hosting &amp; upkeep</h3><p>Kept live, updated, backed up and secure — so you never have to think about it.</p></div><div class="amt"><div class="num">$60</div><div class="per">per month</div></div></div>
+      <div class="qline"><div><h3>Bigger changes</h3><p>Small tweaks are on me. Larger edits, when you want them, billed by the hour. No surprises.</p></div><div class="amt"><div class="num">$65</div><div class="per">per hour</div></div></div>
+      <div class="qfoot">→ One extra job covers the build several times over.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 BOOK -->
+<section class="slide" id="book" data-name="Book a call">
+  <div class="inner">
+    <div class="bookgrid">
+      <div>
+        <span class="label rv">07 — Next step</span>
+        <h2 class="rv d1">Like what you see? <em>Let's get yours started.</em></h2>
+        <p class="lead rv d2">Pick a time below — or call me. I'll have a first draft of your site up within days. No commitment to look.</p>
+        <div class="contact rv d3">
+          <a href="tel:+61491145688">0491 145 688</a>
+          <a href="mailto:daniel@growthbound.media">daniel@growthbound.media</a>
+          <a href="https://growthbound.media" target="_blank" rel="noopener">growthbound.media</a>
+        </div>
+      </div>
+      <div class="calwrap rv d2">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/daniel-growthbound/growthbound-demo-call?hide_gdpr_banner=1&background_color=0e1411&text_color=f2f5f3&primary_color=16b883" style="min-width:280px;height:520px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>GROWTHBOUND — WEBSITES BUILT FOR BUILDERS · NEWCASTLE</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const rail = document.getElementById('rail');
+  const cnum = document.getElementById('cnum');
+
+  // build progress rail
+  slides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.title = s.dataset.name || ('Slide ' + (i + 1));
+    b.addEventListener('click', () => s.scrollIntoView({behavior:'smooth'}));
+    rail.appendChild(b);
+  });
+  const dots = Array.from(rail.children);
+
+  // active slide tracking
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio >= 0.55) {
+        const i = slides.indexOf(e.target);
+        slides.forEach(s => s.classList.remove('active'));
+        e.target.classList.add('active');
+        dots.forEach((d, di) => d.classList.toggle('on', di === i));
+        cnum.textContent = String(i + 1).padStart(2, '0');
+      }
+    });
+  }, {threshold:[0.55]});
+  slides.forEach(s => io.observe(s));
+
+  // keyboard nav
+  function currentIndex(){ return slides.findIndex(s => s.classList.contains('active')); }
+  window.addEventListener('keydown', (ev) => {
+    if (['ArrowDown','PageDown'].includes(ev.key)) { ev.preventDefault(); const n = Math.min(currentIndex()+1, slides.length-1); slides[n].scrollIntoView({behavior:'smooth'}); }
+    if (['ArrowUp','PageUp'].includes(ev.key))   { ev.preventDefault(); const n = Math.max(currentIndex()-1, 0); slides[n].scrollIntoView({behavior:'smooth'}); }
+  });
+</script>
+</body>
+</html>
