@@ -222,11 +222,22 @@ body {
 .feature-list p { font-size: 15px; color: var(--text-soft); line-height: 1.55; }
 
 /* ----- Demo + story ----- */
-.demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
-.demo-copy .eyebrow { margin-bottom: 16px; }
-.demo-copy h2 { font-family: var(--font-display); font-size: clamp(28px, 3.6vw, 42px); font-weight: 700; letter-spacing: -.03em; color: var(--text); margin-bottom: 16px; line-height: 1.08; }
-.demo-copy > p { font-size: 17px; color: var(--text-soft); line-height: 1.6; margin-bottom: 26px; max-width: 460px; }
-.demo-cta { margin-bottom: 34px; }
+.demo-windows { display: grid; grid-template-columns: 1.45fr 1fr; gap: clamp(20px, 3vw, 38px); align-items: start; margin-top: 12px; }
+.demo-win { margin: 0; display: flex; flex-direction: column; position: relative; transition: transform .32s cubic-bezier(.22,.61,.36,1), box-shadow .32s ease; }
+.demo-win .preview { box-shadow: 0 30px 60px -38px rgba(16,38,28,.5); transition: box-shadow .32s ease; }
+.demo-win-lead .preview { box-shadow: 0 36px 70px -34px rgba(16,38,28,.62); }
+/* Hammond stays bigger; hovering Cedar magnifies it to compare */
+.demo-win:not(.demo-win-lead) { cursor: pointer; transform-origin: center top; }
+.demo-win:not(.demo-win-lead):hover { transform: scale(1.12); z-index: 5; }
+.demo-win:not(.demo-win-lead):hover .preview { box-shadow: 0 46px 90px -30px rgba(16,38,28,.62); }
+.demo-win-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 18px 4px 0; }
+.demo-win-foot h3 { font-family: var(--font-display); font-size: clamp(17px, 2vw, 20px); font-weight: 700; letter-spacing: -.02em; color: var(--text); }
+.demo-win-foot p { font-size: 13.5px; color: var(--text-mute); margin-top: 2px; }
+.demo-win-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--green); background: var(--green-soft); padding: 4px 10px; border-radius: 999px; margin-bottom: 9px; }
+.demo-win-cta { flex: none; padding: 10px 18px; font-size: 14px; gap: 7px; }
+.demo-win-cta svg { width: 15px; height: 15px; }
+.demo-founder { max-width: 620px; margin: clamp(44px, 6vw, 72px) auto 0; text-align: center; }
+.demo-founder figcaption { justify-content: center; }
 .founder { border-top: 1px solid var(--border); padding-top: 28px; }
 .founder blockquote { font-size: 16px; line-height: 1.6; color: var(--text); margin-bottom: 18px; }
 .founder figcaption { display: flex; align-items: center; gap: 12px; }
@@ -275,7 +286,7 @@ body {
 .price-note { text-align: center; margin-top: 26px; font-size: 14.5px; color: var(--text-mute); }
 
 /* ----- Recent work (real sites) ----- */
-.work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; max-width: 860px; margin-inline: auto; }
+.work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 380px)); justify-content: center; gap: 22px; max-width: 860px; margin-inline: auto; }
 .work-card { display: block; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); transition: transform .22s ease, box-shadow .25s ease, border-color .25s ease; }
 .work-card:hover { transform: translateY(-4px); border-color: rgba(22,184,131,.4); box-shadow: 0 24px 48px -30px rgba(16,38,28,.45); }
 .work-thumb { position: relative; aspect-ratio: 16 / 10; display: block; overflow: hidden; }
@@ -395,8 +406,7 @@ body {
   .cards-3 { grid-template-columns: 1fr; }
   .features-grid { grid-template-columns: 1fr; }
   .features-intro { position: static; }
-  .demo-grid { grid-template-columns: 1fr; }
-  .demo-preview { max-width: 520px; margin-inline: auto; width: 100%; }
+  .demo-windows { grid-template-columns: 1fr; gap: 40px; max-width: 540px; margin-inline: auto; }
   .steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   .pricing-grid { grid-template-columns: 1fr; }
   .price-side { grid-template-rows: auto auto; }
