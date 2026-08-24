@@ -93,13 +93,23 @@ body::before {
   opacity: .032;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-:root[data-theme='light'] body::before { opacity: .04; }
 @media (prefers-reduced-motion: reduce) { body::before { opacity: .02; } }
 
 /* ---- layout ---- */
 .wrap { width: 100%; max-width: var(--wide); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: clamp(64px, 9vw, 140px); position: relative; }
 .section > * { position: relative; z-index: 1; }
+
+/* Registering the custom property is what makes it animatable: a plain
+   --lit-x is just a string to the engine and jumps between keyframes. With a
+   declared type it interpolates, so the light can drift without transforming
+   the layer, which would otherwise scale out past the section edges and bleed
+   into its neighbours. Browsers without @property simply hold it still. */
+@property --lit-x {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 88%;
+}
 
 /* ---- lit sections ----
    An opt-in accent for the dark ground. A single soft amber wash bleeding in
@@ -122,18 +132,36 @@ body::before {
     transparent 68%
   );
 }
-.lit-left  { --lit-x: 10%; }
-.lit-right { --lit-x: 90%; }
+.lit-left  { --lit-x: 10%; animation: lit-drift-l 34s ease-in-out infinite; }
+.lit-right { --lit-x: 90%; animation: lit-drift-r 27s ease-in-out infinite; }
 
-/* On the light ground the same wash reads as a stain rather than light, so it
-   is pulled right back. */
-:root[data-theme='light'] .lit::after {
-  background: radial-gradient(
-    64% 82% at var(--lit-x, 88%) 0%,
-    color-mix(in srgb, var(--amber) 16%, transparent) 0%,
-    transparent 60%
-  );
+/* Light that sits perfectly still reads as a broken animation, so it moves:
+   far enough to be alive, slow enough that you never catch it doing it. The
+   two sides run on different periods so a page with several never pulses in
+   unison. */
+@keyframes lit-drift-r {
+  0%, 100% { --lit-x: 90%; }
+  50%      { --lit-x: 72%; }
 }
+@keyframes lit-drift-l {
+  0%, 100% { --lit-x: 10%; }
+  50%      { --lit-x: 28%; }
+}
+
+/* A second, slower breath on the layer itself, so the intensity shifts as well
+   as the position. Opacity only: nothing here triggers layout or paint of the
+   content above it. */
+.lit::after { animation: lit-breathe 19s ease-in-out infinite; }
+.lit-left::after { animation-duration: 23s; animation-delay: -6s; }
+@keyframes lit-breathe {
+  0%, 100% { opacity: .72; }
+  50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lit, .lit-left, .lit-right, .lit::after { animation: none; }
+}
+
 
 /* The hairline that opens a lit section: amber at the accent edge, fading to
    nothing across the page. */
@@ -175,7 +203,6 @@ body::before {
   --amber-text:   var(--amber-deep);
   --hover-wash:   var(--line-light-soft);
 }
-:root[data-theme='light'] .on-light { --amber-text: var(--amber); }
 
 /* ---- eyebrow rule ----
    The one detail kept from the drafting-sheet pass, because a thin ruled label

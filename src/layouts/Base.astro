@@ -6,7 +6,6 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CallBar from '../components/CallBar.astro';
-import ThemePreview from '../components/ThemePreview.astro';
 import { site } from '../data/site';
 import { businessSchema } from '../lib/schema';
 import { url } from '../lib/url';
@@ -41,12 +40,6 @@ const allSchema = [businessSchema(description), ...schema].filter(Boolean);
     <script is:inline>
       document.documentElement.classList.remove('no-js');
       document.documentElement.classList.add('js');
-      // TEMPORARY, with ThemePreview.astro. Runs before first paint so the
-      // page does not flash the other theme on every navigation.
-      try {
-        if (localStorage.getItem('gb-theme') === 'light')
-          document.documentElement.setAttribute('data-theme', 'light');
-      } catch (e) {}
     </script>
 
     <title>{fullTitle}</title>
@@ -99,7 +92,6 @@ const allSchema = [businessSchema(description), ...schema].filter(Boolean);
     </main>
     <Footer />
     <CallBar />
-    <ThemePreview />
 
     <script>
       // Nav: solidify once the first screen is scrolled past.
