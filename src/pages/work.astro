@@ -18,7 +18,7 @@ const desc =
   path="/work"
   schema={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Work', path: '/work' }])]}
 >
-  <section class="section page-head">
+  <section class="page-head">
     <div class="wrap">
       <p class="eyebrow label">
         <span>The work</span>
@@ -82,7 +82,7 @@ const desc =
   ))}
 
   {/* the numbers, once, with their source */}
-  <section class="section numbers">
+  <section class="section numbers lit lit-right">
     <div class="wrap">
       <SheetHead
         no="&mdash;"
@@ -116,7 +116,7 @@ const desc =
 <style>
   .lead { font-size: clamp(17px, 2vw, 21px); color: var(--on-dark-soft); max-width: 54ch; }
   .honest {
-    margin-top: 32px; padding-left: 16px; border-left: 2px solid var(--amber);
+    margin-top: 28px; padding-left: 16px; border-left: 2px solid var(--amber);
     font-size: 14.5px; color: var(--on-dark-soft); max-width: 60ch;
   }
 
@@ -132,11 +132,22 @@ const desc =
   .wrow-shot .frame { display: block; }
 
   .wrow-tag {
-    display: inline-block; font-family: var(--mono); font-size: 9.5px; font-weight: 600;
-    letter-spacing: .16em; text-transform: uppercase; padding: 5px 9px;
-    border: 1px solid var(--line-strong); margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase;
+    padding: 6px 12px 6px 10px; border-radius: 100px;
+    border: 1px solid var(--line); color: var(--on-dark-soft);
+    margin-bottom: 20px;
   }
-  .wrow-tag[data-kind='client'] { background: var(--amber); color: var(--ink); border-color: var(--amber); }
+  .wrow-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--line-strong); flex: none;
+  }
+  .wrow-tag[data-kind='client'] { color: var(--on-dark); border-color: var(--line-strong); }
+  .wrow-tag[data-kind='client']::before {
+    background: var(--amber);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 22%, transparent);
+  }
 
   .wrow-meta { font-size: 11px; letter-spacing: .14em; margin-top: 12px; }
   .wrow-blurb { margin-top: 20px; font-size: 17px; max-width: 46ch; color: var(--on-dark-soft); }

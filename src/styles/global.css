@@ -81,9 +81,75 @@ a { color: inherit; text-decoration: none; }
 
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
 
+/* ---- grain ----
+   A flat near-black field is the thing that makes a dark site read as a
+   switched-off screen. A single tile of fine noise at 3% gives it the tooth of
+   printed stock. It is felt rather than seen, and it is the cheapest richness
+   available: one inline SVG, no request, no layout cost.
+   Fixed rather than scrolled, so it behaves like paper grain and not wallpaper. */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: .032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root[data-theme='light'] body::before { opacity: .04; }
+@media (prefers-reduced-motion: reduce) { body::before { opacity: .02; } }
+
 /* ---- layout ---- */
 .wrap { width: 100%; max-width: var(--wide); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: clamp(64px, 9vw, 140px); position: relative; }
+.section > * { position: relative; z-index: 1; }
+
+/* ---- lit sections ----
+   An opt-in accent for the dark ground. A single soft amber wash bleeding in
+   from one edge, plus a hairline that fades out along the top. Used on a FEW
+   sections, never all of them: the whole effect depends on the eye noticing it
+   arrive, and a page where every band glows is just a page with a lighter
+   background.
+
+   `.lit-left` and `.lit-right` alternate the side it comes from, so scrolling
+   the page moves the light rather than repeating it. */
+.lit { position: relative; isolation: isolate; }
+.lit > * { position: relative; z-index: 1; }
+.lit::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(
+    64% 82% at var(--lit-x, 88%) 0%,
+    color-mix(in srgb, var(--amber) 20%, transparent) 0%,
+    color-mix(in srgb, var(--amber) 6%, transparent) 34%,
+    transparent 68%
+  );
+}
+.lit-left  { --lit-x: 10%; }
+.lit-right { --lit-x: 90%; }
+
+/* On the light ground the same wash reads as a stain rather than light, so it
+   is pulled right back. */
+:root[data-theme='light'] .lit::after {
+  background: radial-gradient(
+    64% 82% at var(--lit-x, 88%) 0%,
+    color-mix(in srgb, var(--amber) 16%, transparent) 0%,
+    transparent 60%
+  );
+}
+
+/* The hairline that opens a lit section: amber at the accent edge, fading to
+   nothing across the page. */
+.lit-rule {
+  border-top: 0;
+  background-image: linear-gradient(
+    to right,
+    var(--amber) 0%,
+    color-mix(in srgb, var(--amber) 35%, transparent) 14%,
+    var(--line) 42%,
+    var(--line) 100%
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: top left;
+}
 
 /* An inverted band. In the dark theme it breaks to bone; in the light theme it
    breaks to near-black. Either way it is the OPPOSITE of the page ground, which
