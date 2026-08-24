@@ -68,18 +68,16 @@ strong { font-variation-settings: 'wdth' 100, 'wght' 640; }
   text-transform: uppercase;
   color: var(--on-dark-soft);
 }
-.on-light .label, .on-light .mono, .on-light .crumb { color: var(--on-light-soft); }
-.label-amber { color: var(--amber); }
+.label-amber { color: var(--amber-text); }
 
 /* ---- links ---- */
 a { color: inherit; text-decoration: none; }
 .prose a, .inline-link {
-  color: var(--amber);
+  color: var(--amber-text);
   border-bottom: 1px solid var(--line);
   transition: border-color var(--fast) var(--ease);
 }
 .prose a:hover, .inline-link:hover { border-bottom-color: var(--amber); }
-.on-light .prose a, .on-light .inline-link { color: var(--amber-deep); border-bottom-color: var(--line-light); }
 
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
 
@@ -87,11 +85,31 @@ a { color: inherit; text-decoration: none; }
 .wrap { width: 100%; max-width: var(--wide); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: clamp(64px, 9vw, 140px); position: relative; }
 
-/* A light section. The site is dark by default and breaks to bone where the
-   content is dense enough that reading it on black gets tiring. */
-.on-light { background: var(--bone); color: var(--on-light); }
-.on-light h1, .on-light h2, .on-light h3 { color: var(--on-light); }
-.on-light p { color: var(--on-light-soft); }
+/* An inverted band. In the dark theme it breaks to bone; in the light theme it
+   breaks to near-black. Either way it is the OPPOSITE of the page ground, which
+   is what keeps the rhythm instead of flattening into one continuous sheet.
+   It re-flips the contextual tokens so anything inside reads against ITS ground
+   rather than the page's. Without this, the amber inside an inverted band
+   points the wrong way in one of the two themes. */
+.on-light {
+  background: var(--bone);
+  color: var(--on-light);
+
+  /* Re-point the whole contextual set at this band's ground. Everything inside
+     then uses the ordinary tokens and simply works, in either theme, with no
+     per-component .on-light override to keep in sync. Redefining a token in
+     terms of another is safe here because none of the sources are themselves
+     redefined in this block. */
+  --on-dark:      var(--on-light);
+  --on-dark-soft: var(--on-light-soft);
+  --coal:         var(--band-panel);
+  --line:         var(--line-light);
+  --line-soft:    var(--line-light-soft);
+  --line-strong:  var(--line-light-strong);
+  --amber-text:   var(--amber-deep);
+  --hover-wash:   var(--line-light-soft);
+}
+:root[data-theme='light'] .on-light { --amber-text: var(--amber); }
 
 /* ---- eyebrow rule ----
    The one detail kept from the drafting-sheet pass, because a thin ruled label
@@ -103,9 +121,8 @@ a { color: inherit; text-decoration: none; }
 }
 .eyebrow > span { white-space: nowrap; }
 .eyebrow::before {
-  content: ''; width: 28px; height: 1px; background: var(--amber); flex: none;
+  content: ''; width: 28px; height: 1px; background: var(--amber-text); flex: none;
 }
-.on-light .eyebrow::before { background: var(--amber-deep); }
 
 .head-dim { opacity: .68; }
 
@@ -116,12 +133,10 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(16.5px, 1.9vw, 20px);
   color: var(--on-dark-soft); max-width: 52ch;
 }
-.on-light .page-head .lead { color: var(--on-light-soft); }
 
 .head { margin-bottom: clamp(34px, 5vw, 66px); }
 .head h2 { max-width: 20ch; }
 .head p { margin-top: 20px; font-size: clamp(16.5px, 1.8vw, 19px); max-width: 54ch; color: var(--on-dark-soft); }
-.on-light .head p { color: var(--on-light-soft); }
 
 /* ---- buttons ---- */
 .btn {
@@ -136,11 +151,11 @@ a { color: inherit; text-decoration: none; }
 .btn-primary { background: var(--amber); color: var(--ink); }
 .btn-primary:hover { transform: translateY(-2px); background: var(--on-dark); }
 .btn-line { background: transparent; color: var(--on-dark); border-color: var(--line-strong); }
-.btn-line:hover { border-color: var(--on-dark); background: rgba(242, 240, 236, 0.06); }
+.btn-line:hover { border-color: var(--on-dark); background: var(--hover-wash); }
 .btn-dark { background: var(--ink); color: var(--on-dark); }
 .btn-dark:hover { transform: translateY(-2px); }
-.btn-ghost { background: transparent; color: var(--on-light); border-color: var(--line-light); }
-.btn-ghost:hover { background: var(--ink); color: var(--on-dark); border-color: var(--ink); }
+.btn-ghost { background: transparent; color: var(--on-dark); border-color: var(--line-strong); }
+.btn-ghost:hover { background: var(--on-dark); color: var(--bone); border-color: var(--on-dark); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
 
 /* ---- surfaces ---- */
@@ -150,13 +165,8 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius);
   padding: clamp(24px, 3vw, 38px);
 }
-.on-light .panel {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: var(--line-light);
-}
 .panel h3 { margin-bottom: 11px; }
 .panel p { font-size: 15.5px; color: var(--on-dark-soft); }
-.on-light .panel p { color: var(--on-light-soft); }
 
 .grid { display: grid; gap: clamp(14px, 1.6vw, 22px); }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }

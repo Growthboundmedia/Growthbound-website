@@ -50,13 +50,13 @@ const here = Astro.url.pathname.replace(/\/$/, '');
 <style>
   .nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(14, 16, 17, 0.72);
+    background: var(--nav-bg);
     backdrop-filter: saturate(150%) blur(14px);
     -webkit-backdrop-filter: saturate(150%) blur(14px);
     border-bottom: 1px solid transparent;
     transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
   }
-  .nav.scrolled { border-bottom-color: var(--line); background: rgba(14, 16, 17, 0.9); }
+  .nav.scrolled { border-bottom-color: var(--line); background: var(--nav-bg-solid); }
 
   .nav-in {
     max-width: var(--wide); margin-inline: auto;
@@ -114,7 +114,7 @@ const here = Astro.url.pathname.replace(/\/$/, '');
       display: block; padding: 20px 0; font-size: 13px;
       border-bottom: none; color: var(--on-dark);
     }
-    .nav-menu ul a[aria-current='page'] { color: var(--amber); }
+    .nav-menu ul a[aria-current='page'] { color: var(--amber-text); }
     .nav-cta { margin-top: 26px; }
     .nav-cta .btn { width: 100%; padding: 17px; font-size: 12px; }
   }

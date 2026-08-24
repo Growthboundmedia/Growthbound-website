@@ -77,7 +77,7 @@ const cols = [
     display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px;
     padding-bottom: 44px;
   }
-  .foot-arrow { color: var(--amber); margin-bottom: 20px; }
+  .foot-arrow { color: var(--amber-text); margin-bottom: 20px; }
   .foot-line {
     font-variation-settings: 'wdth' 115, 'wght' 620;
     font-size: clamp(20px, 2.4vw, 27px);
@@ -97,7 +97,7 @@ const cols = [
   .titleblock {
     display: grid; grid-template-columns: 2fr 1fr 1.4fr 1fr;
     border: 1px solid var(--line);
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--inset);
   }
   .tb-cell {
     padding: 14px 16px;
@@ -110,7 +110,7 @@ const cols = [
     overflow-wrap: anywhere;
   }
   .tb-link { border-bottom: 1px solid transparent; transition: border-color var(--fast) var(--ease); }
-  .tb-link:hover { border-bottom-color: var(--amber); color: var(--amber); }
+  .tb-link:hover { border-bottom-color: var(--amber); color: var(--amber-text); }
 
   .foot-legal {
     margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px;
