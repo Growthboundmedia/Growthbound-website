@@ -1,0 +1,177 @@
+---
+// The qualifying form. Netlify Forms.
+//
+// It asks trade, current web presence and what they are after, because those
+// three answers are what decide whether a demo is worth building and what to
+// put in it. A form that only collects a name gives you a name.
+//
+// action="/thanks" is not optional: without it Netlify serves its own grey
+// branded receipt page and that becomes the last thing a prospect sees.
+// data-validate opts into lib/form-ux.ts for inline errors and a locked submit.
+import { url } from '../lib/url';
+
+const trades = [
+  'Builder — new homes',
+  'Builder — renovations and extensions',
+  'Concreter',
+  'Plasterer',
+  'Electrician',
+  'Plumber',
+  'Landscaper',
+  'Carpenter or joiner',
+  'Fabricator or welder',
+  'Another trade',
+];
+
+const presence = [
+  'Nothing at all',
+  'A Facebook page only',
+  'An old site I am not happy with',
+  'A site someone else built and never touched again',
+  'A site I like, I just want more from it',
+];
+
+const wants = [
+  'More quote requests coming in',
+  'To be found on Google for my trade and area',
+  'To look legit next to bigger builders',
+  'A whole new site, mine is embarrassing',
+  'Not sure yet, just having a look',
+];
+---
+<form
+  class="qform"
+  name="enquiry"
+  method="POST"
+  action={url('/thanks')}
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  data-validate
+>
+  <input type="hidden" name="form-name" value="enquiry" />
+  <p class="hp"><label>Leave this empty: <input name="bot-field" /></label></p>
+
+  {/* lib/form-ux.ts fills and shows this on a failed submit. */}
+  <p class="form-summary" data-form-summary role="alert"></p>
+
+  <div class="qf-row">
+    <div class="qf-field">
+      <label for="name">Your name</label>
+      <input id="name" name="name" type="text" autocomplete="name" required />
+    </div>
+    <div class="qf-field">
+      <label for="business">Business name</label>
+      <input id="business" name="business" type="text" autocomplete="organization" />
+    </div>
+  </div>
+
+  <div class="qf-row">
+    <div class="qf-field">
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+    </div>
+    <div class="qf-field">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required />
+    </div>
+  </div>
+
+  <div class="qf-field">
+    <label for="trade">What is your trade?</label>
+    <select id="trade" name="trade" required>
+      <option value="">Pick one</option>
+      {trades.map((t) => <option value={t}>{t}</option>)}
+    </select>
+  </div>
+
+  <div class="qf-field">
+    <label for="presence">What have you got online right now?</label>
+    <select id="presence" name="presence" required>
+      <option value="">Pick one</option>
+      {presence.map((p) => <option value={p}>{p}</option>)}
+    </select>
+  </div>
+
+  <div class="qf-field">
+    <label for="goal">What are you after?</label>
+    <select id="goal" name="goal" required>
+      <option value="">Pick one</option>
+      {wants.map((w) => <option value={w}>{w}</option>)}
+    </select>
+  </div>
+
+  <div class="qf-field">
+    <label for="message">Anything else worth knowing</label>
+    <textarea id="message" name="message" rows="4"
+      placeholder="The jobs you want more of, your current site address, whatever is useful."></textarea>
+  </div>
+
+  <button class="btn btn-primary qf-send" type="submit">Send it through</button>
+  <p class="qf-note">
+    No obligation, and nothing automated goes out after it. I read every one myself.
+  </p>
+</form>
+
+<style>
+  .qform { display: grid; gap: 20px; }
+  .hp { position: absolute; left: -9999px; }
+
+  .qf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 620px) { .qf-row { grid-template-columns: 1fr; } }
+
+  .qf-field { display: grid; gap: 7px; min-width: 0; }
+  .qf-field label {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-light-soft);
+  }
+  .qform input, .qform select, .qform textarea {
+    width: 100%; padding: 14px 15px;
+    background: var(--linen);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius);
+    font-size: 16px;              /* 16px or iOS zooms the page on focus */
+    color: var(--ink);
+    transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+  }
+  .qform textarea { resize: vertical; min-height: 110px; }
+  .qform input:focus, .qform select:focus, .qform textarea:focus {
+    outline: none; border-color: var(--ink); background: var(--bone);
+  }
+  .qform select {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+      linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: right 18px center, right 12px center;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 38px;
+  }
+  .qf-send { margin-top: 4px; justify-self: start; padding-inline: 34px; }
+  @media (max-width: 620px) { .qf-send { justify-self: stretch; } }
+  .qf-note { font-size: 13.5px; color: var(--on-light-soft); }
+
+  /* validation (lib/form-ux.ts) */
+  .qform :global(.field-err) {
+    display: none; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; color: var(--red-deep); margin-top: 2px;
+  }
+  .qform :global(.field-err.on) { display: block; }
+  .qform :global(input.invalid),
+  .qform :global(select.invalid),
+  .qform :global(textarea.invalid) { border-color: var(--red-deep); }
+  .form-summary {
+    display: none; padding: 13px 16px;
+    border: 1px solid var(--red-deep); border-left-width: 3px;
+    color: var(--red-deep); font-family: var(--mono);
+    font-size: 12px; letter-spacing: 0.06em;
+  }
+  .form-summary:global(.on) { display: block; }
+  .qform :global(.btn.sending) { opacity: .62; cursor: progress; }
+  .qform :global(.btn[disabled]) { pointer-events: none; }
+</style>
+
+<script>
+  import { initForms } from '../lib/form-ux';
+  initForms();
+</script>

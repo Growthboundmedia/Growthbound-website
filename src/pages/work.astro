@@ -1,0 +1,176 @@
+---
+import Base from '../layouts/Base.astro';
+import SheetHead from '../components/SheetHead.astro';
+import Cta from '../components/Cta.astro';
+import { proof } from '../data/site';
+import { work } from '../data/work';
+import { breadcrumbSchema } from '../lib/schema';
+import { url } from '../lib/url';
+import Photo from '../components/Photo.astro';
+
+const desc =
+  'Sites Growthbound has built for trades in Newcastle: Satori Muay Thai, a live client ranking #2 on Google, ' +
+  'plus concept builds for a builder and a plasterer you can click through end to end.';
+---
+<Base
+  title="Recent work"
+  description={desc}
+  path="/work"
+  schema={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Work', path: '/work' }])]}
+>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>The work</span>
+        <span class="head-dim">&middot; 3 sheets</span>
+      </p>
+      <h1>Click every part of it.</h1>
+      <p class="lead">
+        Screenshots are easy to fake and easy to hide behind. Everything below is a real
+        site on a real address. Open it on your phone and press the buttons.
+      </p>
+      <p class="honest">
+        One is a paying client. Two are concept builds I made to show what the work looks
+        like, and they are labelled as such on this page and on the sites themselves. I am
+        not going to dress a demo up as a customer.
+      </p>
+    </div>
+  </section>
+
+  {work.map((w, i) => (
+    <section class:list={['section', 'wrow', i % 2 === 1 && 'on-light']}>
+      <div class="wrap">
+        <div class="wrow-in">
+          <figure class="wrow-shot reveal">
+            <a class="frame" href={w.href} rel={w.kind === 'demo' ? 'nofollow' : undefined}>
+              <span class="frame-bar" aria-hidden="true">
+                <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
+                <span class="frame-url">{w.shotUrl}</span>
+              </span>
+              <Photo
+                src={w.shot}
+                alt={`The ${w.name} website, a ${w.trade.toLowerCase()} business in ${w.place}, shown in a desktop browser`}
+                sizes="(max-width: 940px) 100vw, 58vw"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : undefined}
+              />
+            </a>
+          </figure>
+
+          <div class="wrow-copy">
+            <p class="wrow-tag" data-kind={w.kind}>
+              {w.kind === 'client' ? 'Live client' : 'Concept build'}
+            </p>
+            <h2>{w.name}</h2>
+            <p class="wrow-meta mono">{w.trade} &middot; {w.place}</p>
+            <p class="wrow-blurb">{w.blurb}</p>
+            <ul class="wrow-points">
+              {w.points.map((p) => <li>{p}</li>)}
+            </ul>
+            {w.result && <p class="wrow-result"><span class="mono">Result</span> {w.result}</p>}
+            <div class="btn-row">
+              <a
+                class:list={['btn', i % 2 === 1 ? 'btn-ghost' : 'btn-line']}
+                href={w.href}
+                rel={w.kind === 'demo' ? 'nofollow' : undefined}
+              >Open the site &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  {/* the numbers, once, with their source */}
+  <section class="section numbers">
+    <div class="wrap">
+      <SheetHead
+        no="&mdash;"
+        label="The numbers"
+        dim={`Measured ${proof.measured}`}
+        title="What a site doing its job looks like."
+        lead={`${proof.client} is the one client here with a full year behind them, so they are the one with numbers worth showing.`}
+      />
+      <div class="grid grid-4">
+        {proof.stats.map((s) => (
+          <div class="stat card reveal">
+            <p class="stat-fig">{s.figure}</p>
+            <p class="stat-unit mono">{s.unit}</p>
+            <p class="stat-note">{s.note}</p>
+          </div>
+        ))}
+      </div>
+      <p class="src">
+        Taken from their analytics and a Google search on 24 August 2026. One measured
+        30 day window, not an average, and not a projection.
+      </p>
+    </div>
+  </section>
+
+  <Cta
+    heading="Want one of these with your name on it?"
+    body="Tell me your trade and I will build you a free demo inside 48 hours. You look at it, and then you decide."
+  />
+</Base>
+
+<style>
+  .lead { font-size: clamp(17px, 2vw, 21px); color: var(--on-dark-soft); max-width: 54ch; }
+  .honest {
+    margin-top: 32px; padding-left: 16px; border-left: 2px solid var(--amber);
+    font-size: 14.5px; color: var(--on-dark-soft); max-width: 60ch;
+  }
+
+  .wrow-in {
+    display: grid; grid-template-columns: 1.35fr 1fr;
+    gap: clamp(30px, 5vw, 66px); align-items: center;
+  }
+  /* Odd rows put the copy first so the eye zig-zags down the page instead of
+     marching down one column. */
+  .wrow:nth-of-type(even) .wrow-shot { order: 2; }
+
+  .wrow-shot { min-width: 0; }
+  .wrow-shot .frame { display: block; }
+
+  .wrow-tag {
+    display: inline-block; font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase; padding: 5px 9px;
+    border: 1px solid var(--line-strong); margin-bottom: 18px;
+  }
+  .wrow-tag[data-kind='client'] { background: var(--amber); color: var(--ink); border-color: var(--amber); }
+  .on-light .wrow-tag { border-color: var(--line-light); }
+  .on-light .wrow-tag[data-kind='client'] { border-color: var(--amber); }
+
+  .wrow-meta { font-size: 11px; letter-spacing: .14em; margin-top: 12px; }
+  .wrow-blurb { margin-top: 20px; font-size: 17px; max-width: 46ch; color: var(--on-dark-soft); }
+  .on-light .wrow-blurb { color: var(--on-light-soft); }
+
+  .wrow-points { margin: 24px 0 0; display: grid; gap: 9px; }
+  .wrow-points li { position: relative; padding-left: 20px; font-size: 15px; color: var(--on-dark-soft); }
+  .on-light .wrow-points li { color: var(--on-light-soft); }
+  .wrow-points li::before {
+    content: ''; position: absolute; left: 0; top: .58em;
+    width: 8px; height: 8px; background: var(--amber);
+  }
+
+  .wrow-result {
+    margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--line);
+    font-variation-settings: 'wdth' 110, 'wght' 640;
+    font-size: clamp(17px, 1.9vw, 21px); letter-spacing: -.015em;
+  }
+  .on-light .wrow-result { border-top-color: var(--line-light); }
+  .wrow-result .mono { display: block; margin-bottom: 7px; font-size: 10px; }
+
+  .btn-row { margin-top: 28px; }
+
+  @media (max-width: 940px) {
+    .wrow-in { grid-template-columns: 1fr; }
+    .wrow:nth-of-type(even) .wrow-shot { order: 0; }
+  }
+
+  .stat-fig { font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: clamp(32px, 4vw, 46px); font-weight: 600; letter-spacing: -.03em; line-height: 1; }
+  .stat-unit { font-size: 10.5px; margin: 10px 0 12px; }
+  .stat-note { font-size: 14px; color: var(--on-dark-soft); }
+  .src { margin-top: 26px; font-size: 13.5px; color: var(--on-dark-soft); }
+
+  @media (max-width: 900px) { .wrow-in { grid-template-columns: 1fr; } }
+</style>

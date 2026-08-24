@@ -1,0 +1,359 @@
+---
+import Base from '../layouts/Base.astro';
+import SheetHead from '../components/SheetHead.astro';
+import BuildSheet from '../components/BuildSheet.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import Arrow from '../components/Arrow.astro';
+import Photo from '../components/Photo.astro';
+import { site, pricing, proof } from '../data/site';
+import { work } from '../data/work';
+import { process, ceiling } from '../data/process';
+import { generalFaqs } from '../data/faqs';
+import { faqSchema, buildService } from '../lib/schema';
+import { url } from '../lib/url';
+
+const desc =
+  'Growthbound builds lead-generating websites for builders and trades in Newcastle and the Hunter. ' +
+  'Standard build $4,000, half to start and half when you are happy. Free demo of your own site in 48 hours.';
+---
+<Base
+  title="Websites for builders and trades | Newcastle | Growthbound"
+  description={desc}
+  path="/"
+  schema={[faqSchema(generalFaqs), buildService()]}
+>
+  {/* ---------- HERO ---------- */}
+  <section class="hero">
+    <div class="wrap hero-wrap">
+      <div class="hero-copy">
+        <p class="eyebrow label">Newcastle &middot; Builders and trades</p>
+        <h1>The site your work has been waiting for.</h1>
+        <p class="hero-lead">
+          I build the website that shows a stranger what your regulars already know,
+          then run the thing behind it so the phone keeps going.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href={url('/contact')}>Get a free demo</a>
+          <a class="btn btn-line" href={url('/work')}>See the work</a>
+        </div>
+        <p class="hero-note">
+          A working demo of your own site in 48 hours, before you commit to anything.
+        </p>
+      </div>
+
+      <figure class="hero-shot reveal">
+        <div class="frame">
+          <div class="frame-bar" aria-hidden="true">
+            <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
+            <span class="frame-url">hammondcobuilding.com.au</span>
+          </div>
+          <Photo
+            src="/assets/shot-hammond.png"
+            alt="The Hammond and Co Building website, a Newcastle renovations and extensions builder, shown on a desktop browser"
+            sizes="(max-width: 1000px) 100vw, 60vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <figcaption class="mono">Concept build &middot; Hammond &amp; Co, Newcastle</figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap">
+      <ul class="hero-stats">
+        <li><span class="hs-fig">$4,000</span><span class="hs-lbl mono">Standard build</span></li>
+        <li><span class="hs-fig">Half / half</span><span class="hs-lbl mono">Half when you are happy</span></li>
+        <li><span class="hs-fig">48 hrs</span><span class="hs-lbl mono">To your free demo</span></li>
+        <li><span class="hs-fig">2 to 3 wks</span><span class="hs-lbl mono">Start to live</span></li>
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- PROOF STRIP ---------- */}
+  <section class="strip">
+    <div class="wrap">
+      <div class="strip-in">
+        <p class="strip-head">
+          <Arrow size={17} class="strip-arrow" />
+          <span>{proof.client}, {proof.clientLabel}</span>
+        </p>
+        <p class="strip-claim">Ranks <em>#2 on Google</em> for muay thai Newcastle.</p>
+        <p class="strip-sub">
+          Around 2,000 page views a month from 768 visitors, just under half straight off
+          search. 260 a month check the prices without ever ringing the desk.
+        </p>
+        <p class="strip-dim">Measured {proof.measured}</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- 02 THE PROBLEM ---------- */}
+  <section class="section on-light" id="why">
+    <div class="wrap">
+      <SheetHead
+        no="02"
+        label="The problem"
+        dim="Why it matters"
+        title="Word of mouth has a ceiling. Google does not."
+        lead="Your best work already speaks for itself. The trouble is the customer who has never met you, deciding between you and the next bloke right now, on their phone."
+      />
+      <div class="grid grid-3">
+        {ceiling.map((c) => (
+          <div class="panel reveal">
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- 03 THE BUILD (SIGNATURE) ---------- */}
+  <section class="section" id="build">
+    <div class="wrap">
+      <SheetHead
+        no="03"
+        label="The build"
+        dim={`${pricing.build.amount} · standard build`}
+        title="Here is the whole thing, drawn."
+        lead="Not a package with tiers and asterisks. One build, dimensioned, so you can see exactly what you are buying before you buy it."
+      />
+      <BuildSheet />
+
+      <p class="terms-line stencil">{pricing.build.terms}</p>
+      <p class="terms-note">{pricing.build.scopeNote}</p>
+    </div>
+  </section>
+
+  {/* ---------- 04 THE WORK ---------- */}
+  <section class="section" id="work">
+    <div class="wrap">
+      <SheetHead
+        no="04"
+        label="The work"
+        dim="Click through any of them"
+        title="Have a proper look, not a screenshot."
+        lead="One live client and two concept builds. All three are real sites you can click every part of, on your phone, right now."
+      />
+      <div class="grid grid-3">
+        {work.map((w) => (
+          <a class="wcard panel reveal" href={w.href} rel={w.kind === 'demo' ? 'nofollow' : undefined}>
+            <p class="wcard-tag" data-kind={w.kind}>
+              {w.kind === 'client' ? 'Live client' : 'Concept build'}
+            </p>
+            <h3>{w.name}</h3>
+            <p class="wcard-meta mono">{w.trade} · {w.place}</p>
+            <p>{w.blurb}</p>
+            <span class="wcard-go mono">Open it &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- 05 PRICING ---------- */}
+  <section class="section on-light" id="pricing">
+    <div class="wrap">
+      <SheetHead
+        no="05"
+        label="Pricing"
+        dim="No packages, no asterisks"
+        title="The build, then what it costs to keep it running."
+        lead="One extra job covers the build several times over. Everything is month to month after that, and you are never locked in."
+      />
+
+      <div class="price-lead panel reveal">
+        <div>
+          <p class="label">{pricing.build.label}</p>
+          <p class="price-big">{pricing.build.amount}</p>
+          <p class="price-terms stencil">{pricing.build.terms}</p>
+        </div>
+        <p class="price-scope">{pricing.build.scopeNote}</p>
+      </div>
+
+      <div class="grid grid-3 price-grid">
+        {[pricing.hosting, pricing.growth, pricing.partner].map((t) => (
+          <div class="panel reveal">
+            <p class="label">{t.label}</p>
+            <p class="price-mid">
+              {t.amount}{'per' in t && <span class="price-per">{t.per}</span>}
+            </p>
+            <p class="price-sub mono">{t.terms}</p>
+            <p>{t.body}</p>
+            <ul class="ticks">
+              {t.includes.map((i) => <li>{i}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <p class="price-foot">
+        Hosting and security is an ongoing cost, not part of the build. It starts the day
+        the site goes live. Growth replaces it rather than stacking on top of it.
+      </p>
+    </div>
+  </section>
+
+  {/* ---------- 06 PROCESS ---------- */}
+  <section class="section" id="process">
+    <div class="wrap">
+      <SheetHead
+        no="06"
+        label="The process"
+        dim="Mostly my job, not yours"
+        title="You stay on the tools."
+        lead="Four steps. You see something real before you pay a cent, and the only work on your side is sending photos."
+      />
+      <ol class="steps">
+        {process.map((s) => (
+          <li class="step reveal">
+            <div class="step-head">
+              <span class="label">{s.n}</span>
+              <span class="dim">{s.dim}</span>
+            </div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {/* ---------- 07 FAQ ---------- */}
+  <section class="section" id="faq">
+    <div class="wrap faq-wrap">
+      <SheetHead
+        no="07"
+        label="Questions"
+        dim="Answered straight"
+        title="Before you get in touch."
+      />
+      <Faq faqs={generalFaqs} />
+    </div>
+  </section>
+
+  <Cta
+    heading="Let me build you one and you can decide from there."
+    body={`Tell me your trade and what you are after. You will have a working demo of your own site inside 48 hours, and you have not committed to a thing.`}
+  />
+</Base>
+
+<style>
+  /* ---- hero ---- */
+  .hero { padding-block: clamp(36px, 5vw, 68px) clamp(40px, 5vw, 72px); }
+  .hero-wrap {
+    display: grid; grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(32px, 5vw, 76px); align-items: center;
+  }
+  .hero h1 { margin-bottom: 24px; max-width: 15ch; }
+  .hero-lead {
+    font-size: clamp(17px, 1.9vw, 20.5px); color: var(--on-dark-soft);
+    max-width: 42ch; margin-bottom: 34px;
+  }
+  .hero-note { margin-top: 24px; font-size: 13.5px; color: var(--on-dark-soft); }
+
+  .hero-shot { min-width: 0; }
+  .hero-shot figcaption {
+    margin-top: 16px; font-size: 10px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--on-dark-soft);
+  }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    margin-top: clamp(44px, 6vw, 80px);
+    border-top: 1px solid var(--line);
+  }
+  .hero-stats li { padding: 24px 20px 0 0; display: grid; gap: 7px; }
+  .hero-stats li + li { padding-left: 20px; border-left: 1px solid var(--line); }
+  .hs-fig {
+    font-variation-settings: 'wdth' 112, 'wght' 680;
+    font-size: clamp(20px, 2.3vw, 27px); letter-spacing: -.02em; line-height: 1;
+  }
+  .hs-lbl { font-size: 10px; letter-spacing: .15em; }
+
+  @media (max-width: 1000px) {
+    .hero-wrap { grid-template-columns: 1fr; }
+    .hero h1 { max-width: 16ch; }
+  }
+  @media (max-width: 700px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 0; }
+    .hero-stats li { padding: 20px 16px 20px 0; }
+    .hero-stats li:nth-child(odd) { border-left: none; padding-left: 0; }
+    .hero-stats li:nth-child(n+3) { border-top: 1px solid var(--line); }
+  }
+
+  /* ---- proof strip ---- */
+  .strip { padding-block: clamp(48px, 7vw, 96px); border-block: 1px solid var(--line); }
+  .strip-head { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
+  .strip-arrow { color: var(--amber); }
+  .strip-claim {
+    margin-top: 20px;
+    font-variation-settings: 'wdth' 116, 'wght' 700;
+    font-size: clamp(28px, 4.4vw, 54px); line-height: 1; letter-spacing: -.03em;
+    max-width: 18ch;
+  }
+  .strip-claim :global(em) { font-style: normal; color: var(--amber); }
+  .strip-sub { margin-top: 20px; font-size: 17px; max-width: 60ch; color: var(--on-dark-soft); }
+  .strip-dim { margin-top: 22px; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
+
+  /* ---- build terms ---- */
+  .terms-line {
+    margin-top: clamp(34px, 5vw, 56px);
+    font-size: clamp(26px, 5.2vw, 60px); line-height: 1;
+    padding-top: 22px; border-top: 1px solid var(--line-light);
+  }
+  .terms-note { margin-top: 12px; font-size: 14px; color: var(--on-light-soft); }
+
+  /* ---- work cards ---- */
+  .wcard { display: flex; flex-direction: column; gap: 9px; transition: background var(--fast) var(--ease); }
+  .wcard:hover { background: var(--bone); }
+  .wcard-tag {
+    font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase;
+    align-self: flex-start; padding: 4px 8px; border: 1px solid var(--ink);
+  }
+  .wcard-tag[data-kind='client'] { background: var(--amber); }
+  .wcard-meta { font-size: 11px; letter-spacing: .1em; }
+  .wcard-go { margin-top: auto; padding-top: 14px; font-size: 11px; letter-spacing: .14em; color: var(--ink); }
+
+  /* ---- pricing ---- */
+  .price-lead {
+    display: flex; flex-wrap: wrap; gap: 24px 48px;
+    align-items: flex-end; justify-content: space-between;
+    margin-bottom: 1px;
+  }
+  .price-big {
+    font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: clamp(46px, 8vw, 88px);
+    font-weight: 600; line-height: 1; letter-spacing: -.03em; margin-top: 8px;
+  }
+  .price-terms { font-size: clamp(15px, 2vw, 21px); margin-top: 10px; }
+  .price-scope { font-size: 14px; color: var(--on-light-soft); max-width: 34ch; }
+
+  .price-grid .card { display: flex; flex-direction: column; }
+  .price-mid { font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: 38px; font-weight: 600; letter-spacing: -.02em; margin-top: 10px; }
+  .price-per { font-size: 15px; font-weight: 400; color: var(--on-light-soft); letter-spacing: 0; }
+  .price-sub { font-size: 10.5px; letter-spacing: .14em; margin: 6px 0 14px; }
+  .ticks { margin-top: 16px; display: grid; gap: 9px; }
+  .ticks li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--on-light-soft); line-height: 1.5; }
+  .ticks li::before {
+    content: ''; position: absolute; left: 0; top: .55em;
+    width: 9px; height: 9px; border: 1px solid var(--ink); background: var(--amber);
+  }
+  .price-foot { margin-top: 28px; font-size: 14.5px; color: var(--on-light-soft); }
+
+  /* ---- steps ---- */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .step { padding: 26px 24px 26px 0; border-top: 2px solid var(--ink); }
+  .step + .step { padding-left: 24px; border-left: 1px solid var(--line); }
+  .step-head { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
+  .step h3 { margin-bottom: 10px; }
+  .step p { font-size: 15px; color: var(--on-light-soft); }
+  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) {
+    .steps { grid-template-columns: 1fr; }
+    .step + .step { padding-left: 0; border-left: none; }
+  }
+
+  .faq-wrap { max-width: 900px; }
+</style>

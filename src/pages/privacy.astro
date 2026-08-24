@@ -1,0 +1,107 @@
+---
+// Required on a live site. Google Ads and Meta both refuse a landing page with
+// no privacy policy, and the form collects real contact details.
+// The collected-data list is generated from site.formCollects so it can never
+// drift out of step with the actual form.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { url } from '../lib/url';
+const updated = '24 August 2026';
+---
+<Base
+  title="Privacy"
+  description={`How ${site.legalName} handles the details you send through the enquiry form. Short version: they go to Daniel's inbox and nowhere else.`}
+  path="/privacy"
+>
+  <section class="section legal">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Privacy</span>
+        <span class="head-dim">&middot; Updated {updated}</span>
+      </p>
+      <h1>Privacy</h1>
+      <div class="prose">
+        <p class="short">
+          Short version: the enquiry form goes to my inbox. I do not sell anything to
+          anyone, I do not add you to a mailing list, and there are no advertising
+          cookies on this site.
+        </p>
+
+        <h2>Who this is</h2>
+        <p>
+          This site is run by {site.legalName} ({site.owner}), based in {site.base}.
+          You can reach me at <a href={`mailto:${site.email}`}>{site.email}</a> or
+          on <a href={`tel:${site.phoneHref}`}>{site.phoneDisplay}</a>.
+        </p>
+
+        <h2>What the form collects</h2>
+        <p>If you fill in the enquiry form, it sends me:</p>
+        <ul>{site.formCollects.map((f) => <li>{f}</li>)}</ul>
+        <p>
+          Nothing is required beyond what is marked required on the form itself, and there
+          are no hidden fields collecting anything else.
+        </p>
+
+        <h2>What I do with it</h2>
+        <p>
+          I read it, I reply to it, and if it looks like a fit I build you a demo. That is
+          the entire use. Form submissions are handled by Netlify, who host this site, and
+          they land in my email. I do not sell, rent or share your details with anyone, and
+          nothing you send is used to train anything.
+        </p>
+
+        <h2>How long I keep it</h2>
+        <p>
+          Enquiries stay in my email and in Netlify's form records so I have a history of
+          what we discussed. Ask me to delete yours and I will, and I will confirm when it
+          is done.
+        </p>
+
+        <h2>Cookies and analytics</h2>
+        <p>
+          This site sets no advertising cookies and runs no tracking pixels. If analytics
+          is running it is Plausible, which is cookieless and does not collect anything
+          that identifies you personally. Netlify keeps standard server logs, as every web
+          host does.
+        </p>
+
+        <h2>Other sites</h2>
+        <p>
+          Some links go to sites I have built for other people, or to demo builds. Once you
+          are on one of those, this policy stops applying.
+        </p>
+
+        <h2>Your rights</h2>
+        <p>
+          You can ask me what I hold about you, ask me to correct it, or ask me to delete
+          it. Email <a href={`mailto:${site.email}`}>{site.email}</a> and I will sort it
+          out. If you are not happy with how I have handled it you can complain to the
+          Office of the Australian Information Commissioner at oaic.gov.au.
+        </p>
+
+        <h2>Changes</h2>
+        <p>
+          If this changes I will update the date at the top. It was last updated
+          on {updated}.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose { max-width: 68ch; }
+  .prose h2 {
+    font-variation-settings: 'wdth' 110, 'wght' 650;
+    font-size: clamp(19px, 2vw, 23px); letter-spacing: -.012em;
+    margin: 36px 0 12px;
+  }
+  .prose p { color: var(--on-light-soft); margin-bottom: 14px; }
+  .prose ul { margin: 0 0 16px 0; display: grid; gap: 7px; }
+  .prose li { position: relative; padding-left: 20px; color: var(--on-light-soft); font-size: 15.5px; }
+  .prose li::before { content: ''; position: absolute; left: 0; top: .58em; width: 8px; height: 8px; background: var(--amber); }
+  .short {
+    border-left: 3px solid var(--amber); padding: 14px 18px;
+    background: var(--linen); color: var(--ink) !important; font-size: 16px;
+  }
+</style>

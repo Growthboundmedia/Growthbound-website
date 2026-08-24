@@ -1,0 +1,171 @@
+---
+// THE SIGNATURE ELEMENT.
+//
+// Every agency site sells the agency. This sells a drawing of the thing the
+// builder is buying. He cannot read a website, but he has read a set of plans
+// every working day of his life, so the website is drawn as an elevation:
+// dimensioned, annotated, with a title block and a numbered detail schedule.
+//
+// THE GOVERNING RULE: a dimension only ever measures something true. The
+// vertical dimension is the price. The horizontal dimension is the payment
+// split, drawn to scale at its actual midpoint, because it genuinely is half.
+// Nothing here is a dimension for decoration. The moment one is, the whole
+// conceit becomes a costume and a builder will smell it instantly.
+//
+// $90/mo hosting is deliberately NOT on this drawing. One drawing, one number,
+// or the number people remember stops being $4,000. It is stated plainly in the
+// pricing section instead, where it cannot be mistaken for part of the build.
+import { pricing } from '../data/site';
+
+const details = [
+  { n: 1, title: 'Your work, up front',  body: 'Real photos of real jobs. The thing that actually closes a builder’s customer.' },
+  { n: 2, title: 'One job per visit',    body: 'Every page points at the same thing: get them to ask you for a price.' },
+  { n: 3, title: 'Every service, every suburb', body: 'A page each, so the right local finds the right builder.' },
+  { n: 4, title: 'The form does the asking', body: 'Job type, suburb, timeline. You get a lead you can price, not a name.' },
+];
+---
+<figure class="bs">
+  <div class="bs-draw">
+    <svg viewBox="0 0 540 452" role="img" aria-labelledby="bs-title bs-desc" class="bs-svg">
+      <title id="bs-title">The build, drawn as an elevation</title>
+      <desc id="bs-desc">
+        A technical drawing of a builder&apos;s website. A vertical dimension line on the
+        left is marked {pricing.build.amount}. A horizontal dimension along the bottom is
+        split in half and marked half to start, half when happy. Four numbered
+        callouts mark the gallery, the call to action, the service pages and the
+        quote form.
+      </desc>
+
+      <g class="ln">
+        <!-- vertical dimension: the price -->
+        <path d="M100 40 L100 188" />
+        <path d="M100 232 L100 380" />
+        <path d="M92 40 L108 40" />
+        <path d="M92 380 L108 380" />
+        <path d="M94 46 L106 34" class="tick" />
+        <path d="M94 386 L106 374" class="tick" />
+        <path d="M132 40 L92 40" class="ext" />
+        <path d="M132 380 L92 380" class="ext" />
+      </g>
+      <text x="100" y="210" class="dimtext" text-anchor="middle" transform="rotate(-90 100 210)">
+        {pricing.build.amount}
+      </text>
+
+      <!-- the elevation: a builder's website, drawn -->
+      <g class="ln">
+        <rect x="140" y="40" width="300" height="340" class="face" />
+        <path d="M140 74 L440 74" />
+        <rect x="152" y="52" width="12" height="10" class="fill-ink" />
+        <rect x="386" y="51" width="42" height="12" rx="6" class="fill-hivis" />
+        <path d="M300 58 L318 58" /><path d="M330 58 L352 58" /><path d="M362 58 L374 58" />
+
+        <!-- hero photo void -->
+        <rect x="156" y="90" width="268" height="96" class="void" />
+        <path d="M156 90 L424 186" class="hair" />
+        <path d="M424 90 L156 186" class="hair" />
+
+        <!-- headline rules + buttons -->
+        <path d="M156 206 L360 206" class="heavy" />
+        <path d="M156 220 L306 220" class="heavy" />
+        <path d="M156 236 L268 236" class="light" />
+        <rect x="156" y="252" width="86" height="24" class="fill-hivis" />
+        <rect x="252" y="252" width="76" height="24" class="face" />
+
+        <!-- work grid -->
+        <rect x="156" y="296" width="82" height="52" class="void" />
+        <path d="M156 296 L238 348" class="hair" /><path d="M238 296 L156 348" class="hair" />
+        <rect x="249" y="296" width="82" height="52" class="void" />
+        <path d="M249 296 L331 348" class="hair" /><path d="M331 296 L249 348" class="hair" />
+        <rect x="342" y="296" width="82" height="52" class="void" />
+        <path d="M342 296 L424 348" class="hair" /><path d="M424 296 L342 348" class="hair" />
+        <path d="M156 364 L424 364" class="light" />
+      </g>
+
+      <!-- leader lines to the detail schedule -->
+      <g class="ln">
+        <path d="M424 138 L462 138 L462 96 L477 96" class="lead" />
+        <path d="M328 264 L452 264 L452 168 L477 168" class="lead" />
+        <path d="M424 322 L456 322 L456 240 L477 240" class="lead" />
+        <path d="M424 364 L448 364 L448 312 L477 312" class="lead" />
+      </g>
+      <g class="bub">
+        <circle cx="489" cy="96"  r="12" /><text x="489" y="100" text-anchor="middle">1</text>
+        <circle cx="489" cy="168" r="12" /><text x="489" y="172" text-anchor="middle">2</text>
+        <circle cx="489" cy="240" r="12" /><text x="489" y="244" text-anchor="middle">3</text>
+        <circle cx="489" cy="312" r="12" /><text x="489" y="316" text-anchor="middle">4</text>
+      </g>
+
+      <!-- horizontal dimension: the payment split, drawn at its real midpoint -->
+      <g class="ln">
+        <path d="M140 392 L140 418" class="ext" />
+        <path d="M290 392 L290 418" class="ext" />
+        <path d="M440 392 L440 418" class="ext" />
+        <path d="M140 410 L290 410" />
+        <path d="M290 410 L440 410" />
+        <path d="M134 416 L146 404" class="tick" />
+        <path d="M284 416 L296 404" class="tick" />
+        <path d="M434 416 L446 404" class="tick" />
+      </g>
+      <text x="215" y="438" class="dimtext sm" text-anchor="middle">HALF TO START</text>
+      <text x="365" y="438" class="dimtext sm" text-anchor="middle">HALF WHEN HAPPY</text>
+    </svg>
+  </div>
+
+  <figcaption class="bs-key">
+    <p class="label">Detail schedule</p>
+    <ol>
+      {details.map((d) => (
+        <li>
+          <span class="bs-n">{d.n}</span>
+          <span class="bs-t"><strong>{d.title}</strong> {d.body}</span>
+        </li>
+      ))}
+    </ol>
+  </figcaption>
+</figure>
+
+<style>
+  .bs { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(28px, 4vw, 56px); align-items: center; }
+  .bs-draw { min-width: 0; }
+  .bs-svg { width: 100%; height: auto; overflow: visible; }
+
+  /* Every line in the drawing is a hairline that does not thicken when the SVG
+     scales up. That is what keeps it reading as drafted rather than as an
+     illustration of drafting. */
+  .ln path, .ln rect {
+    fill: none; stroke: var(--ink); stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+  .ln .face { fill: var(--linen); }
+  .ln .void { fill: none; stroke: var(--line-light); }
+  .ln .hair { stroke: var(--line); }
+  .ln .ext, .ln .lead { stroke: var(--line-light); stroke-dasharray: 3 3; }
+  .ln .tick { stroke: var(--ink); stroke-width: 1.4; }
+  .ln .heavy { stroke: var(--ink); stroke-width: 3.5; }
+  .ln .light { stroke: var(--line-light); }
+  .ln .fill-ink { fill: var(--ink); stroke: none; }
+  .ln .fill-hivis { fill: var(--amber); stroke: var(--ink); }
+
+  .bub circle { fill: var(--bone); stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .bub text { font-family: var(--mono); font-size: 12px; font-weight: 600; fill: var(--ink); }
+
+  .dimtext {
+    font-family: var(--mono); font-size: 20px; font-weight: 600;
+    fill: var(--ink); letter-spacing: 0.02em;
+  }
+  .dimtext.sm { font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; fill: var(--on-light-soft); }
+
+  .bs-key ol { margin-top: 18px; display: grid; gap: 18px; }
+  .bs-key li { display: flex; gap: 14px; align-items: flex-start; }
+  .bs-n {
+    flex: none; width: 24px; height: 24px; border: 1px solid var(--ink);
+    border-radius: 50%; display: grid; place-items: center;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+  }
+  .bs-t { font-size: 15.5px; line-height: 1.55; color: var(--on-light-soft); }
+  .bs-t strong { color: var(--ink); display: block; }
+
+  @media (max-width: 900px) {
+    .bs { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+// Sticky mobile call bar. On every site, no exceptions. CLAUDE.md.
+// A builder reading this on a phone on site should never have to find a number.
+import { site } from '../data/site';
+import { url } from '../lib/url';
+---
+<div class="callbar">
+  <a class="cb-call" href={`tel:${site.phoneHref}`}>
+    <span class="cb-lbl">Call {site.owner}</span>
+    <span class="cb-no">{site.phoneDisplay}</span>
+  </a>
+  <a class="cb-demo" href={url('/contact')}>Free demo</a>
+</div>
+
+<style>
+  .callbar {
+    display: none;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
+    background: var(--coal);
+    border-top: 1px solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .callbar > * {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 2px; padding: 11px 8px; min-height: 58px;
+    font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.12em;
+  }
+  .cb-call { color: var(--on-dark); }
+  .cb-lbl { font-size: 9px; color: var(--on-dark-soft); }
+  .cb-no { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; }
+  .cb-demo {
+    background: var(--amber); color: var(--ink);
+    font-size: 12px; font-weight: 600; flex-direction: row;
+  }
+
+  @media (max-width: 780px) {
+    .callbar { display: flex; }
+    :global(body) { padding-bottom: 58px; }
+  }
+</style>

@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+import SheetHead from '../components/SheetHead.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { pricing } from '../data/site';
+import { generalFaqs } from '../data/faqs';
+import { faqSchema, breadcrumbSchema, serviceSchema, buildService } from '../lib/schema';
+import { url } from '../lib/url';
+
+const desc =
+  'What a Growthbound website costs and what it costs to keep running. Standard build $4,000, half to start ' +
+  'and half when you are happy. Hosting and security $90 a month. Growth $750 a month, month to month.';
+
+const tiers = [pricing.hosting, pricing.growth, pricing.partner];
+
+const pricingFaqs = [
+  {
+    q: 'Is the $90 a month on top of the $750?',
+    a: 'No. Growth includes the hosting and security, so it replaces the $90 rather than stacking on top of it. You are on one or the other, never both.',
+  },
+  {
+    q: 'Am I locked in?',
+    a: 'No. Everything ongoing is month to month. Give me a month if you want to stop and I will hand over the site and the domain.',
+  },
+  {
+    q: 'What if my job is bigger than the standard build?',
+    a: 'Then it gets quoted properly after a look. More pages, a shop, moving an existing site across, anything custom. I would rather give you a real number than pretend everything fits in one price.',
+  },
+  {
+    q: 'Why half up front?',
+    a: 'Because you should not have to hand over four grand to someone who has not built you anything yet, and I should not build a whole site for someone who might disappear. Half and half means we are both in it.',
+  },
+] as const;
+---
+<Base
+  title="Pricing and growth"
+  description={desc}
+  path="/growth"
+  schema={[
+    faqSchema([...generalFaqs, ...pricingFaqs]),
+    breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Pricing', path: '/growth' }]),
+    buildService(),
+    serviceSchema({
+      name: 'Website hosting and security',
+      description: pricing.hosting.body,
+      price: '90',
+      url: '/growth',
+    }),
+    serviceSchema({
+      name: 'Growth retainer',
+      description: pricing.growth.body,
+      price: '750',
+      url: '/growth',
+    }),
+  ]}
+>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Pricing</span>
+        <span class="head-dim">&middot; No packages, no asterisks</span>
+      </p>
+      <h1>What it costs, all of it.</h1>
+      <p class="lead">
+        One number for the build, one for keeping it alive, one for making it work harder.
+        Nothing hidden and nothing you have to ask about.
+      </p>
+    </div>
+  </section>
+
+  {/* the build, on its own, because it is the number that matters */}
+  <section class="section build-band">
+    <div class="wrap">
+      <div class="bb-in">
+        <div>
+          <p class="label">{pricing.build.qualifier}</p>
+          <p class="bb-fig">{pricing.build.amount}</p>
+          <p class="bb-terms stencil">{pricing.build.terms}</p>
+          <p class="bb-scope">{pricing.build.scopeNote}</p>
+          <div class="btn-row bb-cta">
+            <a class="btn btn-primary" href={url('/contact')}>Get a free demo first</a>
+          </div>
+        </div>
+        <ul class="bb-list">
+          {pricing.build.includes.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="01"
+        label="After it goes live"
+        dim="Month to month, no lock-in"
+        title="Then you pick one of these."
+        lead="The site has to be hosted and kept secure, so that one is not optional. Everything past it is, and you can move between them whenever you like."
+      />
+      <div class="grid grid-3">
+        {tiers.map((t, i) => (
+          <div class:list={['panel', 'tier', 'reveal', i === 1 && 'tier-pick']}>
+            {i === 1 && <p class="tier-flag">Most builders end up here</p>}
+            <p class="label">{t.label}</p>
+            <p class="tier-fig">
+              {t.amount}{'per' in t && <span class="tier-per">{t.per}</span>}
+            </p>
+            <p class="tier-terms mono">{t.terms}</p>
+            <p class="tier-body">{t.body}</p>
+            <ul class="ticks">
+              {t.includes.map((x) => <li>{x}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="foot-note">
+        Growth includes hosting and security. It replaces the $90 a month, it does not
+        stack on top of it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="02"
+        label="The maths"
+        dim="Worth doing once"
+        title="One extra job pays for the lot."
+        lead="This is the whole argument and it takes ten seconds to check against your own numbers."
+      />
+      <div class="maths">
+        <div class="m-cell">
+          <p class="label">The site</p>
+          <p class="m-fig">{pricing.build.amount}</p>
+          <p class="m-sub">One time, half and half.</p>
+        </div>
+        <div class="m-vs mono">against</div>
+        <div class="m-cell">
+          <p class="label">One job you win</p>
+          <p class="m-fig">$10k+</p>
+          <p class="m-sub">Whatever a typical job is worth to you. You know the number better than I do.</p>
+        </div>
+      </div>
+      <p class="maths-note">
+        It only has to bring you one job you would not otherwise have had. Everything
+        after that is the point.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq-wrap">
+      <SheetHead no="03" label="Questions" dim="About the money" title="The ones people actually ask." />
+      <Faq faqs={pricingFaqs} />
+    </div>
+  </section>
+
+  <Cta
+    heading="See what you would be buying, before you buy it."
+    body="A free working demo of your own site inside 48 hours. If you do not like it, you have lost nothing and you owe me nothing."
+  />
+</Base>
+
+<style>
+    .build-band { padding-block: clamp(48px, 6vw, 88px); border-block: 1px solid var(--line); }
+  .bb-in { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 72px); align-items: start; }
+  .bb-fig {
+    font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: clamp(58px, 11vw, 128px); font-weight: 600;
+    line-height: .92; letter-spacing: -.045em; color: var(--on-dark); margin-top: 12px;
+  }
+  .bb-terms { font-size: clamp(16px, 2.4vw, 26px); color: var(--amber); margin-top: 16px; }
+  .bb-scope { margin-top: 18px; font-size: 15px; max-width: 40ch; }
+  .bb-cta { margin-top: 30px; }
+  .bb-list { display: grid; gap: 11px; align-content: start; padding-top: 8px; }
+  .bb-list li { position: relative; padding-left: 22px; font-size: 15.5px; color: var(--on-dark-soft); line-height: 1.5; }
+  .bb-list li::before {
+    content: ''; position: absolute; left: 0; top: .55em;
+    width: 9px; height: 9px; background: var(--amber);
+  }
+  @media (max-width: 860px) { .bb-in { grid-template-columns: 1fr; } }
+
+  .tier { display: flex; flex-direction: column; position: relative; }
+  .tier-pick { border-color: var(--amber); }
+  .tier-flag {
+    position: absolute; top: 0; right: 0;
+    background: var(--amber); color: var(--ink);
+    font-family: var(--mono); font-size: 9px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; padding: 5px 9px;
+    
+  }
+  .tier-fig { font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: 40px; font-weight: 600; letter-spacing: -.02em; margin-top: 10px; }
+  .tier-per { font-size: 15px; font-weight: 400; color: var(--on-dark-soft); letter-spacing: 0; }
+  .tier-terms { font-size: 10.5px; letter-spacing: .14em; margin: 6px 0 14px; }
+  .tier-body { font-size: 15px; color: var(--on-dark-soft); }
+  .ticks { margin-top: 18px; display: grid; gap: 9px; }
+  .ticks li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--on-dark-soft); line-height: 1.5; }
+  .ticks li::before {
+    content: ''; position: absolute; left: 0; top: .55em;
+    width: 9px; height: 9px; background: var(--amber);
+  }
+  .foot-note { margin-top: 26px; font-size: 14.5px; color: var(--on-dark-soft); }
+
+  .maths {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(24px, 4vw, 48px); align-items: center;
+    border: 1px solid var(--line); background: var(--coal);
+    border-radius: var(--radius); padding: clamp(28px, 4vw, 52px);
+  }
+  .m-fig { font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: clamp(38px, 6vw, 68px); font-weight: 600; letter-spacing: -.03em; line-height: 1; margin: 12px 0 10px; }
+  .m-sub { font-size: 14.5px; color: var(--on-dark-soft); }
+  .m-vs { font-size: 11px; letter-spacing: .2em; color: var(--amber); }
+  .maths-note { margin-top: 22px; font-size: 15px; color: var(--on-dark-soft); }
+  @media (max-width: 700px) { .maths { grid-template-columns: 1fr; text-align: left; } }
+
+  .faq-wrap { max-width: 900px; }
+</style>

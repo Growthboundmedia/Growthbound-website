@@ -1,0 +1,135 @@
+---
+// Load order: tokens first (the only file with a hex in it), then structure.
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CallBar from '../components/CallBar.astro';
+import { site } from '../data/site';
+import { businessSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+interface Props {
+  title: string;
+  description: string;      // required. Every page gets its own. CLAUDE.md.
+  path: string;
+  ogImage?: string;
+  schema?: unknown[];
+  noindex?: boolean;        // ONLY /404 and /thanks.
+}
+
+const {
+  title,
+  description,
+  path,
+  ogImage = '/assets/og-default.jpg',
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(url(path || '/'), Astro.site).href;
+const fullTitle = path === '/' ? title : `${title} | ${site.name}`;
+const allSchema = [businessSchema(description), ...schema].filter(Boolean);
+---
+<!doctype html>
+<html lang="en-AU" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+    </script>
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {/* This site is INDEXABLE. The only two pages that may set a robots tag are
+        /404 and /thanks, and they pass it in per page. A site-wide noindex here
+        is how a business quietly delists itself. CLAUDE.md > noindex. */}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+    <link rel="icon" sizes="32x32" href={url('/favicon-32.png')} />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <meta name="theme-color" content={site.themeColor} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(url(ogImage), Astro.site).href} />
+    <meta property="og:locale" content="en_AU" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(url(ogImage), Astro.site).href} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+
+    {allSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+
+    {/* Analytics slot. Plausible is cookieless, which is why /privacy stays
+        three lines. Emits nothing at all until site.analyticsDomain is set, so
+        there is no broken script tag sitting on the site in the meantime. */}
+    {site.analyticsDomain && (
+      <script defer data-domain={site.analyticsDomain} src="https://plausible.io/js/script.js"></script>
+    )}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <CallBar />
+
+    <script>
+      // Nav: solidify once the first screen is scrolled past.
+      const navEl = document.querySelector('[data-nav]');
+      if (navEl) {
+        const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 40);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+
+      // Mobile menu.
+      const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+      const menu = document.querySelector<HTMLElement>('[data-nav-menu]');
+      if (toggle && menu) {
+        const set = (open: boolean) => {
+          toggle.setAttribute('aria-expanded', String(open));
+          menu.classList.toggle('open', open);
+          document.body.style.overflow = open ? 'hidden' : '';
+        };
+        toggle.addEventListener('click', () => set(toggle.getAttribute('aria-expanded') !== 'true'));
+        menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+      }
+
+      // Scroll reveal, skipped entirely under reduced motion.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const items = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        items.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          }),
+          { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        items.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

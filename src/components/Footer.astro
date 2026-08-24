@@ -1,0 +1,134 @@
+---
+// The footer is the title block off a real drawing: the panel bottom-right that
+// says who drew it, what it is, and how to reach them. Two rows, ruled, mono.
+import { site } from '../data/site';
+import { url } from '../lib/url';
+import Arrow from './Arrow.astro';
+
+const year = 2026;
+const cols = [
+  { head: 'The work', links: [
+    { label: 'Recent work', href: '/work' },
+    { label: 'Websites for builders', href: '/websites-for-builders' },
+  ]},
+  { head: 'The deal', links: [
+    { label: 'Pricing and growth', href: '/growth' },
+    { label: 'About Daniel', href: '/about' },
+  ]},
+  { head: 'Start', links: [
+    { label: 'Get a free demo', href: '/contact' },
+  ]},
+];
+---
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-mark">
+        <Arrow size={30} class="foot-arrow" />
+        <p class="foot-line">Websites for builders and trades. Newcastle, and wherever you work.</p>
+      </div>
+
+      <div class="foot-cols">
+        {cols.map((c) => (
+          <div>
+            <p class="label">{c.head}</p>
+            <ul>
+              {c.links.map((l) => <li><a href={url(l.href)}>{l.label}</a></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* The title block. Every field on it is a real one. */}
+    <div class="titleblock">
+      <div class="tb-cell tb-wide">
+        <span class="label">Drawn by</span>
+        <span class="tb-val">{site.owner}, {site.legalName}</span>
+      </div>
+      <div class="tb-cell">
+        <span class="label">Phone</span>
+        <a class="tb-val tb-link" href={`tel:${site.phoneHref}`}>{site.phoneDisplay}</a>
+      </div>
+      <div class="tb-cell">
+        <span class="label">Email</span>
+        <a class="tb-val tb-link" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <div class="tb-cell">
+        <span class="label">Based</span>
+        <span class="tb-val">{site.base}</span>
+      </div>
+    </div>
+
+    <div class="foot-legal">
+      <p class="mono">&copy; {year} {site.legalName}</p>
+      <ul class="mono">
+        <li><a href={url('/privacy')}>Privacy</a></li>
+        <li><a href={url('/terms')}>Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot { padding-block: clamp(52px, 7vw, 96px) 30px; border-top: 1px solid var(--line); background: var(--ink); }
+
+  .foot-top {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px;
+    padding-bottom: 44px;
+  }
+  .foot-arrow { color: var(--amber); margin-bottom: 20px; }
+  .foot-line {
+    font-variation-settings: 'wdth' 115, 'wght' 620;
+    font-size: clamp(20px, 2.4vw, 27px);
+    line-height: 1.18; letter-spacing: -0.02em;
+    color: var(--on-dark); max-width: 22ch;
+  }
+
+  .foot-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .foot-cols ul { margin-top: 16px; display: grid; gap: 11px; }
+  .foot-cols a {
+    font-size: 15px; color: var(--on-dark-soft);
+    border-bottom: 1px solid transparent;
+    transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+  }
+  .foot-cols a:hover { color: var(--on-dark); border-bottom-color: var(--amber); }
+
+  .titleblock {
+    display: grid; grid-template-columns: 2fr 1fr 1.4fr 1fr;
+    border: 1px solid var(--line);
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .tb-cell {
+    padding: 14px 16px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 6px; min-width: 0;
+  }
+  .tb-cell:last-child { border-right: none; }
+  .tb-val {
+    font-family: var(--mono); font-size: 13px; color: var(--on-dark);
+    overflow-wrap: anywhere;
+  }
+  .tb-link { border-bottom: 1px solid transparent; transition: border-color var(--fast) var(--ease); }
+  .tb-link:hover { border-bottom-color: var(--amber); color: var(--amber); }
+
+  .foot-legal {
+    margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px;
+    align-items: center; justify-content: space-between;
+  }
+  .foot-legal ul { display: flex; gap: 18px; }
+  .foot-legal a { border-bottom: 1px solid transparent; }
+  .foot-legal a:hover { border-bottom-color: var(--amber); }
+
+  @media (max-width: 900px) {
+    .foot-top { grid-template-columns: 1fr; gap: 40px; }
+    .titleblock { grid-template-columns: 1fr 1fr; }
+    .tb-cell { border-bottom: 1px solid var(--line); }
+    .tb-cell:nth-child(even) { border-right: none; }
+  }
+  @media (max-width: 560px) {
+    .foot-cols { grid-template-columns: 1fr; gap: 26px; }
+    .titleblock { grid-template-columns: 1fr; }
+    .tb-cell { border-right: none; }
+  }
+</style>

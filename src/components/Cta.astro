@@ -1,0 +1,30 @@
+---
+// The closing band. Graphite, because the title block is where hi-vis is
+// allowed to be the loudest thing on the page.
+import { site } from '../data/site';
+import { url } from '../lib/url';
+
+interface Props { heading: string; body: string; eyebrow?: string }
+const { heading, body, eyebrow = 'Next step' } = Astro.props;
+---
+<section class="section cta">
+  <div class="wrap">
+    <p class="eyebrow label">
+      <span>{eyebrow}</span>
+      <span class="cta-dim">&middot; Free demo in 48 hours</span>
+    </p>
+    <h2>{heading}</h2>
+    <p class="cta-body">{body}</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href={url('/contact')}>Get a free demo</a>
+      <a class="btn btn-line" href={`tel:${site.phoneHref}`}>Call {site.owner} on {site.phoneDisplay}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { border-top: 1px solid var(--line); }
+  .cta h2 { max-width: 18ch; margin-bottom: 20px; }
+  .cta-body { font-size: 18px; margin-bottom: 34px; max-width: 54ch; color: var(--on-dark-soft); }
+  .cta-dim { opacity: .7; }
+</style>

@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+const desc =
+  `Get a free demo of your own site inside 48 hours. Call ${site.owner} on ${site.phoneDisplay} ` +
+  `or send the details through. Websites for builders and trades in Newcastle and the Hunter.`;
+
+const contactFaqs = [
+  {
+    q: 'What happens after I send this?',
+    a: `I read it myself, usually the same day. If it looks like a fit I build you a free working demo of your own site inside 48 hours and send you the link. Nothing automated goes out and you are not added to a list.`,
+  },
+  {
+    q: 'Does the demo cost anything?',
+    a: 'No. You get a working site with your name on it, on a real address you can open on your phone, before you have paid me a cent or agreed to anything.',
+  },
+  {
+    q: 'I would rather just ring you.',
+    a: `Do that. ${site.phoneDisplay}. Early mornings and late afternoons are best, I am usually at the desk then.`,
+  },
+] as const;
+---
+<Base
+  title="Get a free demo"
+  description={desc}
+  path="/contact"
+  schema={[
+    faqSchema(contactFaqs),
+    breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }]),
+  ]}
+>
+  <section class="section ct">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Start here</span>
+        <span class="head-dim">&middot; Free demo in 48 hours</span>
+      </p>
+
+      <div class="ct-grid">
+        <div class="ct-copy">
+          <h1>Tell me what you do and I will build you one.</h1>
+          <p class="lead">
+            A working demo of your own site, on a real address, inside 48 hours. Free, and
+            you have not agreed to anything by asking for it.
+          </p>
+
+          <div class="direct">
+            <a class="direct-row" href={`tel:${site.phoneHref}`}>
+              <span class="label">Call {site.owner}</span>
+              <span class="direct-val">{site.phoneDisplay}</span>
+            </a>
+            <a class="direct-row" href={`mailto:${site.email}`}>
+              <span class="label">Email</span>
+              <span class="direct-val">{site.email}</span>
+            </a>
+            <div class="direct-row">
+              <span class="label">Based</span>
+              <span class="direct-val">{site.base}</span>
+            </div>
+          </div>
+
+          <ul class="expect">
+            <li>A straight answer about whether it is worth doing for you</li>
+            <li>A free working demo inside 48 hours if it is</li>
+            <li>The price up front, before you commit to anything</li>
+          </ul>
+
+          <div class="ct-faq">
+            {contactFaqs.map((f) => (
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        <div class="ct-form">
+          <p class="label form-lbl">Enquiry</p>
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(34px, 5vw, 76px); align-items: start; margin-top: 30px; }
+  .ct-copy h1 { max-width: 15ch; margin-bottom: 24px; }
+  .lead { font-size: clamp(16.5px, 1.9vw, 19.5px); color: var(--on-light-soft); max-width: 44ch; }
+
+  .direct { margin-top: 34px; border-top: 1px solid var(--line-light); }
+  .direct-row {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+  }
+  .direct-val { font-family: var(--mono); font-size: 15px; font-weight: 600; overflow-wrap: anywhere; text-align: right; }
+  a.direct-row:hover .direct-val { color: var(--amber-deep); }
+
+  .expect { margin-top: 30px; display: grid; gap: 10px; }
+  .expect li { position: relative; padding-left: 22px; font-size: 15px; color: var(--on-light-soft); }
+  .expect li::before {
+    content: ''; position: absolute; left: 0; top: .52em;
+    width: 9px; height: 9px; border: 1px solid var(--ink); background: var(--amber);
+  }
+
+  .ct-faq { margin-top: 36px; border-top: 1px solid var(--line); }
+  .ct-faq details { border-bottom: 1px solid var(--line); }
+  .ct-faq summary {
+    padding: 14px 0; cursor: pointer; list-style: none;
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .ct-faq summary::-webkit-details-marker { display: none; }
+  .ct-faq summary::before { content: '+ '; color: var(--amber-deep); }
+  .ct-faq details[open] summary::before { content: '\2212 '; }
+  .ct-faq p { padding-bottom: 16px; font-size: 14.5px; color: var(--on-light-soft); }
+
+  .ct-form { border: 1px solid var(--line-light); background: var(--linen); padding: clamp(20px, 3vw, 32px); }
+  .form-lbl { padding-bottom: 12px; margin-bottom: 22px; border-bottom: 1px solid var(--line-light); }
+
+  @media (max-width: 900px) { .ct-grid { grid-template-columns: 1fr; } }
+</style>

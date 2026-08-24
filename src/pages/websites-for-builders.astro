@@ -1,0 +1,194 @@
+---
+// The first trade page. Architected as the pattern every other trade page will
+// follow (concreters, plasterers, fabricators), but ONLY builders is built.
+// A thin page with the trade name swapped is the exact thing CLAUDE.md forbids,
+// so the next one gets written properly or not at all.
+import Base from '../layouts/Base.astro';
+import SheetHead from '../components/SheetHead.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import BuildSheet from '../components/BuildSheet.astro';
+import { site, pricing } from '../data/site';
+import { work } from '../data/work';
+import { builderFaqs } from '../data/faqs';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+const hammond = work.find((w) => w.slug === 'hammond')!;
+
+const desc =
+  'Websites built for builders in Newcastle and the Hunter. Service pages, suburb pages, a job gallery ' +
+  'and a quote form that qualifies the lead. Standard build $4,000, half to start and half when you are happy.';
+
+const pages = [
+  { name: 'New homes',           body: 'The build type with the longest decision and the biggest cheque. It gets the most room and the most photos.' },
+  { name: 'Renovations',         body: 'Where most Newcastle work actually is. Weatherboard, brick veneer, the awkward 60s floor plan everyone wants opened up.' },
+  { name: 'Extensions',          body: 'Second storeys, rear additions, the granny flat out the back. Different search, different page.' },
+  { name: 'Custom builds',       body: 'For the client who arrives with an architect and a folder. The page that has to look like you belong on that job.' },
+  { name: 'Decks and pergolas',  body: 'Smaller tickets, faster decisions, and the jobs that fill a gap in the calendar.' },
+  { name: 'Every suburb you work', body: 'A real page for each one, with the housing stock and the jobs that actually come out of it. Not the same paragraph with the name swapped.' },
+];
+---
+<Base
+  title="Websites for builders in Newcastle"
+  description={desc}
+  path="/websites-for-builders"
+  schema={[
+    faqSchema(builderFaqs),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Websites for builders', path: '/websites-for-builders' },
+    ]),
+    serviceSchema({
+      name: 'Website design for builders',
+      description: desc,
+      price: '4000',
+      url: '/websites-for-builders',
+    }),
+  ]}
+>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Trade sheet</span>
+        <span class="head-dim">&middot; Builders</span>
+      </p>
+      <h1>Websites for builders.</h1>
+      <p class="lead">
+        Out of Newcastle, for builders around the Hunter and anywhere else you work.
+        Built to bring you the jobs you actually want, not just any job.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={url('/contact')}>Get a free demo</a>
+        <a class="btn btn-line" href={hammond.href} rel="nofollow">See a builder's site &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="01"
+        label="Why builders"
+        dim="Not a generic trades site"
+        title="A builder's customer decides differently."
+        lead="Someone booking a plumber wants it fixed today. Someone choosing a builder is about to hand over the biggest cheque of their life to a stranger. That takes a completely different site."
+      />
+      <div class="grid grid-3">
+        <div class="panel reveal">
+          <h3>They research you for weeks</h3>
+          <p>They will read every page you have, twice, and look at every photo. A one-page site runs out of things to say and they go and read your competitor instead.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>They are frightened, not cheap</h3>
+          <p>Everyone knows someone whose build went wrong. The site's job is to make you the safe choice, which is what the process, the licence and the finished jobs are doing there.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>Photos do the closing</h3>
+          <p>Nothing you write will beat eight good photos of a finished job in a suburb they recognise. That is why the gallery is not an afterthought stuck on the end.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="02"
+        label="The pages"
+        dim="Every one earns its place"
+        title="What actually gets built."
+        lead="Every service and every suburb gets its own page, because that is how someone searching finds you and how Google works out what you do and where."
+      />
+      <div class="grid grid-3">
+        {pages.map((p, i) => (
+          <div class="panel reveal">
+            <h3>{p.name}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="03"
+        label="The build"
+        dim={`${pricing.build.amount} · standard build`}
+        title="Drawn, so you can see it before you buy it."
+      />
+      <BuildSheet />
+      <p class="terms-line stencil">{pricing.build.terms}</p>
+      <p class="terms-note">{pricing.build.scopeNote}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="04"
+        label="Have a look"
+        dim="Concept build"
+        title="A builder's site, end to end."
+        lead="Hammond & Co is a concept build, not a customer, and it says so on the site. Everything else about it is exactly what a real build gets."
+      />
+      <a class="feature card reveal" href={hammond.href} rel="nofollow">
+        <div>
+          <p class="wcard-tag">Concept build</p>
+          <h3>{hammond.name}</h3>
+          <p class="mono feature-meta">{hammond.trade} &middot; {hammond.place}</p>
+          <p class="feature-blurb">{hammond.blurb}</p>
+          <span class="mono feature-go">Open it &rarr;</span>
+        </div>
+        <ul class="feature-list">
+          {hammond.points.map((p) => <li>{p}</li>)}
+        </ul>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq-wrap">
+      <SheetHead no="05" label="Questions" dim="From builders" title="What builders ask me." />
+      <Faq faqs={builderFaqs} />
+    </div>
+  </section>
+
+  <Cta
+    heading="I will build you one for nothing and you can judge it yourself."
+    body={`Send me your trade and a couple of job photos. Inside 48 hours you will have a working site with your name on it, and no reason to have paid me anything yet.`}
+  />
+</Base>
+
+<style>
+  .page-head .lead { font-size: clamp(17px, 2vw, 21px); max-width: 52ch; margin-bottom: 34px; color: var(--on-dark-soft); }
+
+  .terms-line {
+    margin-top: clamp(34px, 5vw, 56px);
+    font-size: clamp(26px, 5.2vw, 60px); line-height: 1;
+    padding-top: 22px; border-top: 1px solid var(--line-light);
+  }
+  .terms-note { margin-top: 12px; font-size: 14px; color: var(--on-light-soft); }
+
+  .feature { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(24px, 4vw, 56px); transition: background var(--fast) var(--ease); }
+  .feature:hover { background: var(--bone); }
+  .wcard-tag {
+    display: inline-block; font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase; padding: 5px 9px;
+    border: 1px solid var(--ink); margin-bottom: 16px;
+  }
+  .feature-meta { font-size: 11px; letter-spacing: .12em; margin-top: 10px; }
+  .feature-blurb { margin-top: 16px; font-size: 16px; color: var(--on-light-soft); }
+  .feature-go { display: inline-block; margin-top: 20px; font-size: 11px; letter-spacing: .14em; }
+  .feature-list { display: grid; gap: 10px; align-content: start; padding-top: 6px; }
+  .feature-list li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--on-light-soft); }
+  .feature-list li::before {
+    content: ''; position: absolute; left: 0; top: .55em;
+    width: 9px; height: 9px; border: 1px solid var(--ink); background: var(--amber);
+  }
+  @media (max-width: 780px) { .feature { grid-template-columns: 1fr; } }
+
+  .faq-wrap { max-width: 900px; }
+</style>

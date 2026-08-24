@@ -1,0 +1,25 @@
+---
+// A section opener: a ruled amber label, a headline, a lead.
+// The drafting-sheet numbering from the first pass is gone. It was doing
+// decoration, not navigation, and it made every section look like paperwork.
+interface Props {
+  no?: string;
+  label: string;
+  title: string;
+  lead?: string;
+  dim?: string;
+}
+const { label, title, lead, dim } = Astro.props;
+---
+<div class="head reveal">
+  <p class="eyebrow label">
+    <span>{label}</span>
+    {dim && <span class="head-dim">&middot; {dim}</span>}
+  </p>
+  <h2>{title}</h2>
+  {lead && <p>{lead}</p>}
+</div>
+
+<style>
+  .head-dim { opacity: .7; }
+</style>

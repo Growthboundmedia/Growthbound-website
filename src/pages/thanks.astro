@@ -1,0 +1,61 @@
+---
+// The post-submit page. Without action="/thanks" on the form, Netlify serves
+// its own grey branded receipt and that becomes the last thing a prospect sees.
+// It also gives analytics a real conversion URL to count.
+//
+// noindex is one of the two allowed in the system: a thank-you page that ranks
+// sends cold traffic to a page reading as though they already enquired, and it
+// inflates the conversion count with people who never submitted anything.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { url } from '../lib/url';
+---
+<Base
+  title="Got it"
+  description={`Your details are with ${site.owner}. He reads every one himself and comes back the same day.`}
+  path="/thanks"
+  noindex
+>
+  <section class="section ty">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Enquiry received</span>
+        <span class="head-dim">&middot; Same day reply</span>
+      </p>
+      <h1>Got it. That is with me now.</h1>
+      <p class="lead">
+        I read every one myself and usually come back the same day. If it is urgent, do not
+        wait on the email, just ring.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={`tel:${site.phoneHref}`}>Call {site.owner} on {site.phoneDisplay}</a>
+        <a class="btn btn-ghost" href={url('/work')}>Look at the work while you wait</a>
+      </div>
+
+      <ol class="next">
+        <li>
+          <span class="mono">01</span>
+          <p><strong>I read it.</strong> Usually the same day, and I work out whether a site is actually the right thing for you.</p>
+        </li>
+        <li>
+          <span class="mono">02</span>
+          <p><strong>You get a demo.</strong> If it is a fit, a working site with your name on it inside 48 hours, on a real address you can open on your phone.</p>
+        </li>
+        <li>
+          <span class="mono">03</span>
+          <p><strong>Nothing else.</strong> No mailing list, no automated follow-up sequence, and your details go nowhere but my inbox.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ty h1 { margin: 24px 0 22px; max-width: 16ch; }
+  .lead { font-size: clamp(17px, 2vw, 20px); color: var(--on-light-soft); max-width: 50ch; margin-bottom: 32px; }
+  .next { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--line); display: grid; gap: 20px; max-width: 62ch; }
+  .next li { display: flex; gap: 16px; align-items: flex-start; }
+  .next span { flex: none; font-size: 11px; letter-spacing: .16em; color: var(--on-light-soft); padding-top: 4px; }
+  .next p { font-size: 15.5px; color: var(--on-light-soft); }
+  .next strong { color: var(--ink); }
+</style>

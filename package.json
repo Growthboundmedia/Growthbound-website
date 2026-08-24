@@ -1,0 +1,19 @@
+{
+  "name": "growthbound",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run images && astro build",
+    "preview": "astro preview",
+    "images": "node scripts/optimise-images.mjs",
+    "favicons": "node scripts/favicons.mjs"
+  },
+  "dependencies": {
+    "astro": "^4.16.18"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

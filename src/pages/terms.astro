@@ -1,0 +1,118 @@
+---
+// Required on a live site alongside /privacy. Plain terms, matching what the
+// pricing page actually says. Nothing here may contradict src/data/site.ts.
+import Base from '../layouts/Base.astro';
+import { site, pricing } from '../data/site';
+const updated = '24 August 2026';
+---
+<Base
+  title="Terms"
+  description={`The terms ${site.legalName} works under: what the build includes, how payment works, who owns what, and how to stop.`}
+  path="/terms"
+>
+  <section class="section legal">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Terms</span>
+        <span class="head-dim">&middot; Updated {updated}</span>
+      </p>
+      <h1>Terms</h1>
+      <div class="prose">
+        <p class="short">
+          Short version: {pricing.build.amount} for the standard build, half to start and
+          half when you are happy. You own the site and the domain. Everything ongoing is
+          month to month and you can stop whenever you like.
+        </p>
+
+        <h2>Who you are dealing with</h2>
+        <p>
+          {site.legalName}, run by {site.owner}, based in {site.base}. Contact details are
+          in the footer of every page.
+        </p>
+
+        <h2>The demo</h2>
+        <p>
+          The free demo is free. You do not pay for it, you are not committed by asking for
+          it, and if you do not want to go ahead that is the end of it. The demo stays up
+          while we are talking and I take it down afterwards. It is not indexed by search
+          engines and it is not a live site.
+        </p>
+
+        <h2>What the build costs</h2>
+        <p>
+          The standard build is {pricing.build.amount}. {pricing.build.terms} The first half
+          starts the work, the second is due when you have reviewed it and you are happy for
+          it to go live. {pricing.build.scopeNote}
+        </p>
+        <p>
+          If the job turns out to be bigger than the standard build, I will tell you the
+          number before I start it, not after.
+        </p>
+
+        <h2>Ongoing costs</h2>
+        <p>
+          Hosting and security is {pricing.hosting.amount}{pricing.hosting.per} and starts
+          the day the site goes live. The Growth plan
+          is {pricing.growth.amount}{pricing.growth.per} and includes hosting and security,
+          so it replaces that cost rather than adding to it. Both are month to month with
+          no lock-in and no minimum term. Give me a month's notice to stop.
+        </p>
+
+        <h2>What you have to do</h2>
+        <p>
+          Send me the photos, the details of your services and areas, and any licence or
+          insurance information you want shown. I will chase you once or twice, but a build
+          cannot finish without them, and a job that goes quiet for more than 60 days gets
+          paused until you come back to it.
+        </p>
+
+        <h2>Who owns what</h2>
+        <p>
+          You own the domain, the content and the finished site. Once the build is paid for
+          it is yours, and if you ever want to move it somewhere else you can take it with
+          you. Photos and text you give me stay yours, and you are confirming you have the
+          right to use them.
+        </p>
+
+        <h2>What I will not do</h2>
+        <p>
+          I will not invent reviews, licence numbers, ABNs, insurance claims or awards. If
+          you cannot substantiate something, it does not go on your site. This protects you
+          more than it protects me.
+        </p>
+
+        <h2>What I cannot promise</h2>
+        <p>
+          I cannot promise a Google position, a number of enquiries or a volume of work.
+          Nobody honest can, because Google decides rankings and your market decides the
+          rest. What I do promise is that the site is built properly, the technical
+          groundwork is done, and on the Growth plan I keep working on it.
+        </p>
+
+        <h2>If something goes wrong</h2>
+        <p>
+          Tell me. Most things are a five minute fix and I would rather hear about it than
+          have you sitting on it. Nothing here limits any rights you have under Australian
+          Consumer Law.
+        </p>
+
+        <h2>Changes</h2>
+        <p>Last updated {updated}. If these change, the date changes with them.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose { max-width: 68ch; }
+  .prose h2 {
+    font-variation-settings: 'wdth' 110, 'wght' 650;
+    font-size: clamp(19px, 2vw, 23px); letter-spacing: -.012em;
+    margin: 36px 0 12px;
+  }
+  .prose p { color: var(--on-light-soft); margin-bottom: 14px; }
+  .short {
+    border-left: 3px solid var(--amber); padding: 14px 18px;
+    background: var(--linen); color: var(--ink) !important; font-size: 16px;
+  }
+</style>

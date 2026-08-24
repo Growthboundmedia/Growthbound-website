@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { site } from '../data/site';
+import { url } from '../lib/url';
+---
+<Base
+  title="Page not found"
+  description={`That page has moved or never existed. Call ${site.owner} on ${site.phoneDisplay} or head back to the ${site.name} home page.`}
+  path="/404"
+  noindex
+>
+  <section class="section err">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Sheet not found</span>
+        <span class="head-dim">&middot; Not in this set</span>
+      </p>
+      <h1>That page is not in the set.</h1>
+      <p class="lead">
+        Either it moved or the link was wrong. Nothing you did. Quickest fix is to ring me
+        and just ask, otherwise start again from the front page.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={url('/')}>Back to the front page</a>
+        <a class="btn btn-ghost" href={`tel:${site.phoneHref}`}>Call {site.owner} on {site.phoneDisplay}</a>
+      </div>
+      <p class="alt">
+        After a demo of your own site? <a class="inline-link" href={url('/contact')}>Send the details through</a>
+        and you will have one inside 48 hours.
+      </p>
+    </div>
+  </section>
+
+  <Cta
+    heading="While you are here."
+    body="A free working demo of your own site in 48 hours. Costs nothing and commits you to nothing."
+  />
+</Base>
+
+<style>
+  .err h1 { margin: 24px 0 22px; max-width: 15ch; }
+  .lead { font-size: clamp(17px, 2vw, 20px); color: var(--on-light-soft); max-width: 48ch; margin-bottom: 32px; }
+  .alt { margin-top: 30px; font-size: 15px; color: var(--on-light-soft); }
+</style>

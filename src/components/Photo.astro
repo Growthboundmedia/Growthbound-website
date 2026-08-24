@@ -1,0 +1,80 @@
+---
+// Photo — the ONE way an image ships on a generated site.
+//
+// Emits a <picture> with a webp source, a jpeg fallback, a real srcset and the
+// right sizes hint. Derivatives come from public/assets/opt/manifest.json, which
+// scripts/optimise-images.mjs writes before every build.
+//
+// GRACEFUL: no manifest entry (script never ran, or the file is a logo too small
+// to be worth resizing) means it renders exactly the plain <img> it replaced.
+// Nothing about a build can break because the optimiser did not run.
+//
+// LAZY LOADING is a prop with a deliberate default of "lazy". The ONLY images
+// that may pass eager are the ones above the fold on first paint: the home hero
+// and an interior page header. Everything else stays lazy. Getting this backwards
+// is the usual reason a photo-led page feels slow.
+import { url } from '../lib/url';
+import { photoFor, type Derivative } from '../lib/photos';
+
+interface Props {
+  src: string;                 // authored from the site root, e.g. /assets/hero.jpg
+  alt: string;                 // REQUIRED. Names the work and the place. CLAUDE.md.
+  width?: number;
+  height?: number;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  // Defaults to full-bleed, which is what a hero and a band are. A card grid
+  // should pass its own, e.g. "(max-width: 720px) 100vw, 33vw".
+  sizes = '100vw',
+  loading = 'lazy',
+  fetchpriority,
+  class: className,
+} = Astro.props;
+
+const entry = photoFor(src);
+
+const setFor = (list: Derivative[]) =>
+  list.map((d) => `${url(`/assets/${d.file}`)} ${d.w}w`).join(', ');
+
+// Intrinsic size prevents layout shift. Prefer what the caller passed (it may be
+// describing a cropped container), fall back to the real dimensions.
+const w = width ?? entry?.width;
+const h = height ?? entry?.height;
+---
+{entry ? (
+  <picture>
+    <source type="image/webp" srcset={setFor(entry.webp)} sizes={sizes} />
+    <img
+      src={url(`/assets/${entry.jpg[entry.jpg.length - 1].file}`)}
+      srcset={setFor(entry.jpg)}
+      sizes={sizes}
+      alt={alt}
+      width={w}
+      height={h}
+      loading={loading}
+      decoding={loading === 'eager' ? 'sync' : 'async'}
+      fetchpriority={fetchpriority}
+      class={className}
+    />
+  </picture>
+) : (
+  <img
+    src={url(src)}
+    alt={alt}
+    width={w}
+    height={h}
+    loading={loading}
+    decoding={loading === 'eager' ? 'sync' : 'async'}
+    fetchpriority={fetchpriority}
+    class={className}
+  />
+)}

@@ -1,0 +1,193 @@
+---
+// Daniel's page. Everything here is his actual history and nothing is dressed
+// up. The photo slot is built to look deliberate whether or not there is an
+// image in it, so the page ships now and the photo drops in later.
+import Base from '../layouts/Base.astro';
+import SheetHead from '../components/SheetHead.astro';
+import Cta from '../components/Cta.astro';
+import Photo from '../components/Photo.astro';
+import { site, proof } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+// Set to the photo path once there is one in public/assets. Empty renders the
+// drawn placeholder, which is a real design state, not a broken image.
+const portrait = '';
+
+const desc =
+  'Daniel runs Growthbound out of Newcastle. Pipe laying, then marketing for a real estate company, ' +
+  'then conveyor maintenance at a coal port. He has worked the tools and done the marketing.';
+
+const road = [
+  { when: 'Before', what: 'Laying pipe', body: 'In a trench, on the tools, working for someone else. It is where I learned what a job actually costs a bloke to do, which turns out to matter a lot when you are writing about one.' },
+  { when: 'Then', what: 'Marketing at a real estate company', body: 'The other side of it. Listings, leads, chasing enquiries, working out why one ad brought calls and the next one brought nothing.' },
+  { when: 'After that', what: 'Conveyor maintenance at a coal port', body: 'Back on the tools, back in the boots. Shift work, real machinery, and a very direct education in the difference between people who turn up and people who talk.' },
+  { when: 'Now', what: 'Growthbound', body: 'Websites for builders and trades, out of Newcastle. It is just me. You deal with the person who builds it, every time.' },
+];
+---
+<Base
+  title="About Daniel"
+  description={desc}
+  path="/about"
+  schema={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }])]}
+>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Who you are dealing with</span>
+        <span class="head-dim">&middot; One bloke</span>
+      </p>
+
+      <div class="ab-grid">
+        <div>
+          <h1>I have worked the tools and I have done the marketing.</h1>
+          <p class="lead">
+            Most people building websites for tradies have never been on a site. I laid pipe,
+            I did shift work at a coal port, and in between I ran marketing for a real estate
+            company. So I know what a quote costs you to write, and I know why some ads bring
+            the phone to life and others do nothing at all.
+          </p>
+          <p class="lead">
+            That is the whole reason this works. I am not translating your trade into agency
+            language. I already speak it.
+          </p>
+        </div>
+
+        <figure class="portrait">
+          {portrait ? (
+            <Photo
+              src={portrait}
+              alt={`${site.owner}, who builds the websites at ${site.legalName}, in Newcastle`}
+              sizes="(max-width: 900px) 100vw, 340px"
+              loading="eager"
+              fetchpriority="high"
+            />
+          ) : (
+            <div class="portrait-void" aria-hidden="true">
+              <svg viewBox="0 0 200 240" class="pv-svg">
+                <rect x="1" y="1" width="198" height="238" class="pv-face" />
+                <path d="M1 1 L199 239" class="pv-hair" />
+                <path d="M199 1 L1 239" class="pv-hair" />
+              </svg>
+            </div>
+          )}
+          <figcaption class="mono">
+            {site.owner} &middot; {site.legalName} &middot; {site.base}
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="01"
+        label="How I got here"
+        dim="The short version"
+        title="Not a straight line."
+      />
+      <ol class="road">
+        {road.map((r) => (
+          <li class="road-row reveal">
+            <span class="road-when mono">{r.when}</span>
+            <div>
+              <h3>{r.what}</h3>
+              <p>{r.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="02"
+        label="The one before this"
+        dim={`Measured ${proof.measured}`}
+        title="I did the whole thing for a gym, not just the website."
+        lead={`${proof.client} in Newcastle was the first one I took end to end. I built the site, ran the ads and helped organise the opening, and got real people through the door.`}
+      />
+      <p class="gym">
+        It is still going. It ranks second on Google for muay thai Newcastle, brings in 768
+        visitors a month with just under half of them straight off search, and 260 people a
+        month look up the prices without anyone having to answer a phone. That is the same
+        playbook, pointed at builders now.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-line" href={url('/work')}>See the numbers &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SheetHead
+        no="03"
+        label="How I work"
+        dim="So there are no surprises"
+        title="What you get, dealing with me."
+      />
+      <div class="grid grid-2">
+        <div class="panel reveal">
+          <h3>It is just me</h3>
+          <p>No account manager, no handover to someone offshore, no ticket system. The person you talk to is the person building it, start to finish.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>I will tell you if you do not need it</h3>
+          <p>If your existing site is fine and you have a traffic problem rather than a website problem, I will say so. Selling you the wrong thing costs me the referral, which is worth more than the job.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>I do not invent anything</h3>
+          <p>No made-up reviews, no licence numbers I have not seen, no awards nobody gave you. If your site claims it, it is because you told me it was true.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>You see it before you pay</h3>
+          <p>A free working demo first, then half to start and half when you are happy. You are never out of pocket for something you have not looked at.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Cta
+    heading="Have a chat and see if it is worth doing."
+    body={`Fifteen minutes, no pitch. If it is not right for you I will say so, and if it is you will have a free demo inside 48 hours.`}
+  />
+</Base>
+
+<style>
+  .ab-grid { display: grid; grid-template-columns: 1fr 340px; gap: clamp(32px, 5vw, 72px); align-items: start; margin-top: 26px; }
+  .ab-grid h1 { max-width: 17ch; margin-bottom: 28px; }
+  .lead { font-size: clamp(16.5px, 1.85vw, 19px); color: var(--on-light-soft); max-width: 56ch; }
+  .lead + .lead { margin-top: 18px; }
+
+  .portrait { border: 1px solid var(--line-light); background: var(--linen); padding: 12px; }
+  .portrait :global(img) { width: 100%; height: auto; display: block; }
+  .portrait-void { background: var(--bone); }
+  .pv-svg { width: 100%; height: auto; display: block; }
+  .pv-face { fill: none; stroke: var(--line-light); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .pv-hair { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .portrait figcaption {
+    margin-top: 12px; font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--on-light-soft);
+  }
+  @media (max-width: 900px) {
+    .ab-grid { grid-template-columns: 1fr; }
+    .portrait { max-width: 300px; }
+  }
+
+  .road { display: grid; }
+  .road-row {
+    display: grid; grid-template-columns: 140px 1fr; gap: 24px;
+    padding: 26px 0; border-top: 1px solid var(--line);
+  }
+  .road-row:last-child { border-bottom: 1px solid var(--line); }
+  .road-when { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-light-soft); padding-top: 5px; }
+  .road-row h3 { margin-bottom: 9px; }
+  .road-row p { color: var(--on-light-soft); font-size: 15.5px; }
+  @media (max-width: 620px) { .road-row { grid-template-columns: 1fr; gap: 10px; } }
+
+  .gym { font-size: 17px; max-width: 62ch; margin-bottom: 30px; }
+</style>
