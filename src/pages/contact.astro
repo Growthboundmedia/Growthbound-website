@@ -91,7 +91,7 @@ const contactFaqs = [
 <style>
   .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(34px, 5vw, 76px); align-items: start; margin-top: 30px; }
   .ct-copy h1 { max-width: 15ch; margin-bottom: 24px; }
-  .lead { font-size: clamp(16.5px, 1.9vw, 19.5px); color: var(--on-light-soft); max-width: 44ch; }
+  .lead { font-size: clamp(16.5px, 1.9vw, 19.5px); color: var(--on-dark-soft); max-width: 44ch; }
 
   .direct { margin-top: 34px; border-top: 1px solid var(--line-light); }
   .direct-row {
@@ -102,10 +102,10 @@ const contactFaqs = [
   a.direct-row:hover .direct-val { color: var(--amber-text); }
 
   .expect { margin-top: 30px; display: grid; gap: 10px; }
-  .expect li { position: relative; padding-left: 22px; font-size: 15px; color: var(--on-light-soft); }
+  .expect li { position: relative; padding-left: 22px; font-size: 15px; color: var(--on-dark-soft); }
   .expect li::before {
     content: ''; position: absolute; left: 0; top: .52em;
-    width: 9px; height: 9px; border: 1px solid var(--ink); background: var(--amber);
+    width: 9px; height: 9px; background: var(--amber);
   }
 
   .ct-faq { margin-top: 36px; border-top: 1px solid var(--line); }
@@ -118,7 +118,7 @@ const contactFaqs = [
   .ct-faq summary::-webkit-details-marker { display: none; }
   .ct-faq summary::before { content: '+ '; color: var(--amber-text); }
   .ct-faq details[open] summary::before { content: '\2212 '; }
-  .ct-faq p { padding-bottom: 16px; font-size: 14.5px; color: var(--on-light-soft); }
+  .ct-faq p { padding-bottom: 16px; font-size: 14.5px; color: var(--on-dark-soft); }
 
   .ct-form { border: 1px solid var(--line-light); background: var(--linen); padding: clamp(20px, 3vw, 32px); }
   .form-lbl { padding-bottom: 12px; margin-bottom: 22px; border-bottom: 1px solid var(--line-light); }

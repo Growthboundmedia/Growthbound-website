@@ -170,23 +170,30 @@ const pages = [
     font-size: clamp(26px, 5.2vw, 60px); line-height: 1;
     padding-top: 22px; border-top: 1px solid var(--line-light);
   }
-  .terms-note { margin-top: 12px; font-size: 14px; color: var(--on-light-soft); }
+  .terms-note { margin-top: 12px; font-size: 14px; color: var(--on-dark-soft); }
 
   .feature { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(24px, 4vw, 56px); transition: background var(--fast) var(--ease); }
-  .feature:hover { background: var(--bone); }
+  .feature:hover { background: var(--carbon); }
   .wcard-tag {
-    display: inline-block; font-family: var(--mono); font-size: 9.5px; font-weight: 600;
-    letter-spacing: .16em; text-transform: uppercase; padding: 5px 9px;
-    border: 1px solid var(--ink); margin-bottom: 16px;
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: 6px 12px 6px 9px; border-radius: 100px;
+    border: 1px solid var(--line); color: var(--on-dark-soft);
+    margin-bottom: 18px;
+  }
+  .wcard-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--line-strong); flex: none;
   }
   .feature-meta { font-size: 11px; letter-spacing: .12em; margin-top: 10px; }
-  .feature-blurb { margin-top: 16px; font-size: 16px; color: var(--on-light-soft); }
-  .feature-go { display: inline-block; margin-top: 20px; font-size: 11px; letter-spacing: .14em; }
+  .feature-blurb { margin-top: 16px; font-size: 16px; color: var(--on-dark-soft); }
+  .feature-go { display: inline-block; margin-top: 20px; font-size: 11px; letter-spacing: .14em; color: var(--amber); }
   .feature-list { display: grid; gap: 10px; align-content: start; padding-top: 6px; }
-  .feature-list li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--on-light-soft); }
+  .feature-list li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--on-dark-soft); }
   .feature-list li::before {
     content: ''; position: absolute; left: 0; top: .55em;
-    width: 9px; height: 9px; border: 1px solid var(--ink); background: var(--amber);
+    width: 9px; height: 9px; background: var(--amber);
   }
   @media (max-width: 780px) { .feature { grid-template-columns: 1fr; } }
 
