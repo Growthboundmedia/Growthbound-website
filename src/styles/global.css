@@ -208,10 +208,13 @@ body::before {
    The one detail kept from the drafting-sheet pass, because a thin ruled label
    above a headline is genuinely good and costs nothing. */
 .eyebrow {
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; gap: 6px 14px;
   margin-bottom: 22px;
-  white-space: nowrap;
+  flex-wrap: wrap;
 }
+/* The label and the dim each hold together, but the row itself must be allowed
+   to wrap. It was nowrap on the container as well, so on a phone a long eyebrow
+   ran off the edge and gave the whole page a horizontal scroll. */
 .eyebrow > span { white-space: nowrap; }
 .eyebrow::before {
   content: ''; width: 28px; height: 1px; background: var(--amber-text); flex: none;

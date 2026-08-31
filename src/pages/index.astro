@@ -152,15 +152,70 @@ const desc =
     </div>
   </section>
 
-  {/* ---------- 05 PRICING ---------- */}
-  <section class="section on-light" id="pricing">
+  {/* ---------- 05 THE CASE FOR IT ----------
+       The objection handler, and it sits here on purpose: they have just
+       clicked through three real sites, and the next thing they hit is a
+       $4,000 number. This is Daniel's own argument, in his own words.
+       No claim in it is a measured result. The maths is an if, not a promise. */}
+  <section class="section lit lit-right" id="case">
     <div class="wrap">
       <SheetHead
         no="05"
+        label="The case for it"
+        dim="Why a website at all"
+        title="Everything you do to win work ends up here."
+        lead="Someone searches your name. Someone scrolls past you on Instagram. Someone gets handed your number at a barbecue. Someone taps an ad. All four end in the same place, on your website, working out whether you are worth ringing."
+      />
+
+      <div class="case-body">
+        <div class="case-prose reveal">
+          <p>
+            Word of mouth is the best lead you will ever get, and it is the one you have the
+            least control over. It stops when the talking stops. A website does not stop. It
+            works while you are on site, while you are asleep, and while the bloke down the
+            road is still thinking about ringing someone.
+          </p>
+          <p>
+            That is why it is the backbone and not the extra. The posting, the ads, the
+            referrals, the signage on the ute, all of it points at one place. If that place is
+            weak, everything pointing at it is wasted.
+          </p>
+        </div>
+
+        <aside class="case-maths panel reveal">
+          <p class="label label-amber">The maths</p>
+          <p class="case-fig">{pricing.build.amount}</p>
+          <p class="case-aside">You might look at that and think this bloke is dreaming.</p>
+          <p>
+            Win one extra job off it in the next twelve months and it has paid for the site and
+            two more besides. Miss that job because the site looked cheap, and you did not save
+            four grand. You just never found out what it cost you.
+          </p>
+        </aside>
+      </div>
+
+      <figure class="case-quote reveal">
+        <blockquote>
+          You would not eat at a restaurant with a smashed window and a mouldy door. You would
+          not even look at the menu.
+        </blockquote>
+        <figcaption>
+          A cheap template does exactly that to work you are proud of. The work is still good.
+          Nobody gets far enough in to see it.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  {/* ---------- 06 PRICING ---------- */}
+  <section class="section on-light" id="pricing">
+    <div class="wrap">
+      <SheetHead
+        no="06"
         label="Pricing"
         dim="No packages, no asterisks"
         title="The build, then what it costs to keep it running."
-        lead="One extra job covers the build several times over. Everything is month to month after that, and you are never locked in."
+        lead="One build, then only what you actually want after it. Everything past the build is month to month and you are never locked in."
       />
 
       <div class="price-lead panel reveal">
@@ -195,11 +250,11 @@ const desc =
     </div>
   </section>
 
-  {/* ---------- 06 PROCESS ---------- */}
+  {/* ---------- 07 PROCESS ---------- */}
   <section class="section" id="process">
     <div class="wrap">
       <SheetHead
-        no="06"
+        no="07"
         label="The process"
         dim="Mostly my job, not yours"
         title="You stay on the tools."
@@ -220,11 +275,11 @@ const desc =
     </div>
   </section>
 
-  {/* ---------- 07 FAQ ---------- */}
+  {/* ---------- 08 FAQ ---------- */}
   <section class="section" id="faq">
     <div class="wrap faq-wrap">
       <SheetHead
-        no="07"
+        no="08"
         label="Questions"
         dim="Answered straight"
         title="Before you get in touch."
@@ -340,6 +395,54 @@ const desc =
   }
   .wcard:hover .wcard-go { color: var(--amber); }
 
+  /* ---- the case for it ----
+     Deliberately not another three-panel grid. It sits between two sections
+     that both use one, so a prose column with a single pulled-out figure is
+     what stops it reading as more of the same. */
+  .case-body {
+    display: grid; grid-template-columns: 1.35fr 1fr;
+    gap: clamp(22px, 3vw, 54px); align-items: start;
+  }
+  .case-prose p {
+    font-size: clamp(17px, 1.85vw, 20px); line-height: 1.6;
+    max-width: 46ch; color: var(--on-dark);
+  }
+  .case-prose p + p { margin-top: 22px; }
+
+  .case-maths { display: flex; flex-direction: column; }
+  /* .panel p greys body copy, which is right for a paragraph and wrong for
+     the figure. It is the loudest thing in the panel, so it takes the full
+     ink rather than the soft one. */
+  .case-fig {
+    font-family: var(--grotesk); font-weight: 700;
+    font-size: clamp(46px, 6vw, 78px); line-height: .95;
+    letter-spacing: -.02em; margin: 10px 0 16px; color: var(--on-dark);
+  }
+  .case-aside {
+    font-family: var(--mono); font-size: 13px; line-height: 1.5;
+    color: var(--amber-text); margin-bottom: 14px;
+  }
+
+  /* Same two columns as .case-body above, so the quote and its answer land on
+     the same vertical lines as the prose and the figure. Bottom-aligned: the
+     caption is the reply to the quote, so it sits with it, not above it. */
+  .case-quote {
+    margin-top: clamp(34px, 4.5vw, 62px);
+    padding-top: clamp(26px, 3vw, 40px);
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 1.35fr 1fr;
+    gap: clamp(20px, 3vw, 54px); align-items: end;
+  }
+  .case-quote blockquote {
+    font-size: clamp(23px, 3.1vw, 42px); line-height: 1.15;
+    letter-spacing: -.015em; max-width: 26ch; text-wrap: balance;
+  }
+  .case-quote figcaption {
+    font-size: clamp(15px, 1.6vw, 17px);
+    max-width: 34ch; color: var(--on-dark-soft);
+    padding-bottom: 6px;
+  }
+
   /* ---- pricing ---- */
   .price-lead {
     display: flex; flex-wrap: wrap; gap: 24px 48px;
@@ -349,12 +452,13 @@ const desc =
   .price-big {
     font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: clamp(46px, 8vw, 88px);
     font-weight: 600; line-height: 1; letter-spacing: -.03em; margin-top: 8px;
+    color: var(--on-dark);
   }
   .price-terms { font-size: clamp(15px, 2vw, 21px); margin-top: 10px; }
   .price-scope { font-size: 14px; color: var(--on-dark-soft); max-width: 34ch; }
 
   .price-grid .card { display: flex; flex-direction: column; }
-  .price-mid { font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: 38px; font-weight: 600; letter-spacing: -.02em; margin-top: 10px; }
+  .price-mid { font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: 38px; font-weight: 600; letter-spacing: -.02em; margin-top: 10px; color: var(--on-dark); }
   .price-per { font-size: 15px; font-weight: 400; color: var(--on-dark-soft); letter-spacing: 0; }
   .price-sub { font-size: 10.5px; letter-spacing: .14em; margin: 6px 0 14px; }
   .ticks { margin-top: 16px; display: grid; gap: 9px; }
@@ -376,6 +480,12 @@ const desc =
   @media (max-width: 560px) {
     .steps { grid-template-columns: 1fr; }
     .step + .step { padding-left: 0; border-left: none; }
+  }
+
+  @media (max-width: 900px) {
+    .case-body, .case-quote { grid-template-columns: 1fr; }
+    .case-prose p { max-width: none; }
+    .case-quote figcaption { padding-bottom: 0; margin-top: 20px; }
   }
 
   .faq-wrap { max-width: 900px; }
