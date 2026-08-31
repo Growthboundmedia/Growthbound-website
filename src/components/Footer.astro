@@ -42,10 +42,6 @@ const cols = [
 
     {/* The title block. Every field on it is a real one. */}
     <div class="titleblock">
-      <div class="tb-cell tb-wide">
-        <span class="label">Drawn by</span>
-        <span class="tb-val">{site.owner}, {site.legalName}</span>
-      </div>
       <div class="tb-cell">
         <span class="label">Phone</span>
         <a class="tb-val tb-link" href={`tel:${site.phoneHref}`}>{site.phoneDisplay}</a>
@@ -95,7 +91,7 @@ const cols = [
   .foot-cols a:hover { color: var(--on-dark); border-bottom-color: var(--amber); }
 
   .titleblock {
-    display: grid; grid-template-columns: 2fr 1fr 1.4fr 1fr;
+    display: grid; grid-template-columns: 1fr 1.6fr 1.1fr;
     border: 1px solid var(--line);
     background: var(--inset);
   }
@@ -125,6 +121,7 @@ const cols = [
     .titleblock { grid-template-columns: 1fr 1fr; }
     .tb-cell { border-bottom: 1px solid var(--line); }
     .tb-cell:nth-child(even) { border-right: none; }
+    .tb-cell:last-child { grid-column: 1 / -1; border-right: none; border-bottom: none; }
   }
   @media (max-width: 560px) {
     .foot-cols { grid-template-columns: 1fr; gap: 26px; }

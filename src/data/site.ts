@@ -118,12 +118,13 @@ export const pricing = {
     amount: 'Tailored',
     terms: 'Quoted after a proper look at the business.',
     body:
-      'The whole funnel, not just the site. Lead generation, follow-up, the systems behind the phone ringing. For builders who want the pipeline run, not just the website built.',
+      'The whole funnel, not just the site. Organic posting, paid ads on Google and Meta, email nurture and retargeting, all run for you. For builders who want winning work on autopilot while they stay on the tools.',
     includes: [
       'Everything in Growth',
-      'Lead generation run for you',
-      'Follow-up systems so a lead does not go cold',
-      'Ad campaigns where they make sense',
+      'Organic posting, written and scheduled for you',
+      'Paid ads on Google and Meta, run and managed',
+      'Email nurture so a lead does not go cold',
+      'Retargeting the people who already looked',
       'We work out what it is worth before either of us commits',
     ],
   },
