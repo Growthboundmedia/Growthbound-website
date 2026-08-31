@@ -72,6 +72,24 @@ export const pricing = {
     terms: 'Half to start. Half when you are happy.',
     scopeNote:
       'Bigger scope, more pages, migrations and custom work quoted properly after a look.',
+
+    // The payment plan. Same $4,000, no interest and no premium: 1500 + (250 x 10)
+    // is exactly 4000, and the arithmetic has to stay exactly that, because the
+    // moment a plan totals more than the price it is a finance product and has to
+    // be described as one.
+    //
+    // The deposit is the risk filter, not a formality. It is what makes the plan
+    // safe to offer: it covers the work up front and a client who has put $1,500
+    // in does not walk. /terms quotes this object, so the offer on the pricing
+    // page and the mechanics in the terms can never drift apart.
+    plan: {
+      deposit: '$1,500',
+      monthly: '$250',
+      months: 'ten',
+      line: '$1,500 to start, then $250 a month for ten months.',
+      note: 'Same $4,000, no interest. Hosting is $90 a month on top, same as always.',
+    },
+
     includes: [
       'Custom design and build, not a template',
       'A gallery of your actual jobs',

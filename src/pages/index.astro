@@ -219,12 +219,22 @@ const desc =
       />
 
       <div class="price-lead panel reveal">
-        <div>
+        <div class="price-lead-main">
           <p class="label">{pricing.build.label}</p>
           <p class="price-big">{pricing.build.amount}</p>
           <p class="price-terms stencil">{pricing.build.terms}</p>
         </div>
         <p class="price-scope">{pricing.build.scopeNote}</p>
+
+        {/* The plan is a payment term, not a second product, so it sits under
+            the one price rather than beside it in a column of its own. A
+            column would invite a comparison and the smaller number always
+            wins that. */}
+        <div class="price-plan">
+          <p class="label label-amber">Or pay it off</p>
+          <p class="price-plan-line">{pricing.build.plan.line}</p>
+          <p class="price-plan-note">{pricing.build.plan.note}</p>
+        </div>
       </div>
 
       <div class="grid grid-3 price-grid">
@@ -456,6 +466,19 @@ const desc =
   }
   .price-terms { font-size: clamp(15px, 2vw, 21px); margin-top: 10px; }
   .price-scope { font-size: 14px; color: var(--on-dark-soft); max-width: 34ch; }
+
+  /* Spans the whole card and sits under a rule, so it reads as a second way to
+     pay the one price rather than a cheaper tier sitting next to it. */
+  .price-plan {
+    flex-basis: 100%;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .price-plan-line {
+    font-size: clamp(17px, 1.9vw, 22px);
+    margin-top: 8px; color: var(--on-dark);
+  }
+  .price-plan-note { font-size: 14px; color: var(--on-dark-soft); margin-top: 6px; }
 
   .price-grid .card { display: flex; flex-direction: column; }
   .price-mid { font-family: var(--grotesk); font-variation-settings: 'wdth' 110, 'wght' 700; font-size: 38px; font-weight: 600; letter-spacing: -.02em; margin-top: 10px; color: var(--on-dark); }

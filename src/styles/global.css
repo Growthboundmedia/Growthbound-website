@@ -68,7 +68,10 @@ strong { font-variation-settings: 'wdth' 100, 'wght' 640; }
   text-transform: uppercase;
   color: var(--on-dark-soft);
 }
-.label-amber { color: var(--amber-text); }
+/* Doubled deliberately. `.panel p` is (0,1,1) and a single class is (0,1,0),
+   so a bare .label-amber lost to it and every amber label inside a panel
+   rendered as ordinary soft grey. .label.label-amber is (0,2,0) and wins. */
+.label.label-amber { color: var(--amber-text); }
 
 /* ---- links ---- */
 a { color: inherit; text-decoration: none; }

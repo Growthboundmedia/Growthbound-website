@@ -122,6 +122,10 @@ const pages = [
       <BuildSheet />
       <p class="terms-line stencil">{pricing.build.terms}</p>
       <p class="terms-note">{pricing.build.scopeNote}</p>
+      <p class="terms-plan">
+        <span class="label label-amber">Or pay it off</span>
+        {pricing.build.plan.line} {pricing.build.plan.note}
+      </p>
     </div>
   </section>
 
@@ -163,6 +167,14 @@ const pages = [
 </Base>
 
 <style>
+  /* The plan, same words as the pricing page, pulled from the same object. */
+  .terms-plan {
+    margin-top: 20px; padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 15px; color: var(--on-dark-soft); max-width: 62ch;
+  }
+  .terms-plan .label { display: block; margin-bottom: 7px; }
+
   .page-head .lead { font-size: clamp(17px, 2vw, 21px); max-width: 52ch; margin-bottom: 34px; color: var(--on-dark-soft); }
 
   .terms-line {

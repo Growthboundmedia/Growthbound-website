@@ -16,7 +16,11 @@ export const generalFaqs = [
   },
   {
     q: 'What does it cost?',
-    a: 'The standard build is $4,000. Half to start, half when you are happy with it. After it goes live, hosting and security is $90 a month. Bigger scope, more pages, migrations and custom work get quoted properly after a look.',
+    a: 'The standard build is $4,000. Half to start, half when you are happy with it. If a lump sum does not suit, you can pay it off instead: $1,500 to start and $250 a month for ten months. After it goes live, hosting and security is $90 a month. Bigger scope, more pages, migrations and custom work get quoted properly after a look.',
+  },
+  {
+    q: 'Can I pay it off monthly instead?',
+    a: 'Yes. $1,500 to start and $250 a month for ten months. That is the same $4,000, not a finance deal with interest on it, and hosting is $90 a month on top the same as it is for anyone else. While it is being paid off the site is licensed to you rather than owned by you, the same way a ute on finance is yours to drive but not yours to sell. When the last payment lands it is yours outright. Your domain is yours the whole time either way.',
   },
   {
     q: 'Will people actually find it on Google?',
