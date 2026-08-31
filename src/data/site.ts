@@ -23,7 +23,7 @@ export const site = {
 
   // ---- site ----
   url: 'https://growthbound.media',
-  themeColor: '#16191A',
+  themeColor: '#F0A82C',
   geo: { lat: -32.9283, lng: 151.7817 },   // Newcastle NSW
 
   // ---- analytics ----

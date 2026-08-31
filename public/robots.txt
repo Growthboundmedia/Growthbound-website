@@ -1,0 +1,7 @@
+# growthbound.media is the real business site and it is meant to be found.
+# Every demo under demo.growthbound.media is noindexed separately, by that
+# site's own _headers and robots.txt. Nothing is disallowed here.
+User-agent: *
+Allow: /
+
+Sitemap: https://growthbound.media/sitemap.xml

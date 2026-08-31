@@ -1,33 +1,87 @@
-# Netlify configuration — GrowthBound Media
-# Static site, no build step. Netlify serves the files in this folder as-is.
+# Netlify configuration — growthbound.media
+#
+# This file overrides the dashboard build settings, so it is the single source
+# of truth and there is nothing for anyone to click.
+#
+# IT USED TO SAY publish = "." AND command = "", which was correct when this
+# repo was a hand-written static site. It is an Astro build now: with the old
+# settings Netlify would have published the repo ROOT and served raw .astro
+# source instead of the site. That is the one change here that had to happen
+# before the rebuild ever reached main.
 
 [build]
-  publish = "."
-  command = ""
+  command = "npm run build"
+  publish = "dist"
 
-# --- Security headers (applied to every page) ---
+[build.environment]
+  NODE_VERSION = "22"
+
+# --- Security headers (every page) ---
+# Deliberately no Strict-Transport-Security. Netlify already forces HTTPS, and
+# HSTS is cached by the browser for its whole max-age, so it is the one header
+# here that is genuinely hard to take back. Worth adding, but as a decision
+# rather than a side effect.
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
 
-# Netlify Forms: the contact form (name="contact") is detected automatically
-# from the static HTML at deploy time. Submissions appear under
-# Site settings → Forms, and can email you via Form notifications.
+# --- Caching ---
+# Astro fingerprints everything in /_astro/, so the filename changes whenever the
+# content does and these can be cached hard. The image derivatives in
+# /assets/opt/ carry their width in the name and are rebuilt under a new name if
+# the source changes, so they get the same treatment.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/opt/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 # --- Redirects ---
-# Old pitch page (/landing) is retired in favour of the new deck (/pitch).
-# Forward any existing /landing links so they don't 404.
+# Everything below is a URL that exists on the live site TODAY and stops
+# existing when the rebuild lands. Each one is a 301 so any link, bookmark or
+# indexed result lands somewhere real instead of on the 404.
+
+# /demo/* was a full copy of the Hammond demo served from the production domain.
+# It has to go: it is duplicate content competing with the real demo, and a
+# prospect who trims the URL should not be able to browse it. Point the whole
+# tree at the demo's actual home.
+[[redirects]]
+  from = "/demo/*"
+  to = "https://demo.growthbound.media/hammond/"
+  status = 301
+  force = true
+
+# The old sales deck. Its job is done by the new site.
+[[redirects]]
+  from = "/pitch"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pitch/*"
+  to = "/"
+  status = 301
+  force = true
+
+# /landing pointed at /pitch, which no longer exists. Send it to the homepage
+# rather than through a redirect chain.
 [[redirects]]
   from = "/landing"
-  to = "/pitch/"
+  to = "/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/landing/*"
-  to = "/pitch/"
+  to = "/"
   status = 301
   force = true

@@ -2,3 +2,12 @@
 node_modules/
 .DS_Store
 .shots/
+
+# Build output. Netlify builds from source now (netlify.toml: command
+# "npm run build", publish "dist"), so a committed dist is overwritten on every
+# deploy and only ever shows up as noise in a diff.
+dist/
+
+# Generated image derivatives. scripts/optimise-images.mjs rebuilds these from
+# the source files in public/assets before every build.
+public/assets/opt/

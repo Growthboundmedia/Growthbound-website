@@ -85,6 +85,7 @@ const cols = [
   .foot-cols ul { margin-top: 16px; display: grid; gap: 11px; }
   .foot-cols a {
     font-size: 15px; color: var(--on-dark-soft);
+    display: inline-block;
     border-bottom: 1px solid transparent;
     transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease);
   }
@@ -113,7 +114,7 @@ const cols = [
     align-items: center; justify-content: space-between;
   }
   .foot-legal ul { display: flex; gap: 18px; }
-  .foot-legal a { border-bottom: 1px solid transparent; }
+  .foot-legal a { display: inline-block; border-bottom: 1px solid transparent; }
   .foot-legal a:hover { border-bottom-color: var(--amber); }
 
   @media (max-width: 900px) {
@@ -125,6 +126,15 @@ const cols = [
   }
   @media (max-width: 560px) {
     .foot-cols { grid-template-columns: 1fr; gap: 26px; }
+    /* These were 17px tall, which is the line box and nothing else. This is a
+       site read on a phone, one handed, by someone who has just come off the
+       tools, so the footer links get a real tap target. Padding rather than
+       font size, and the gap comes off so the column does not grow. */
+    .foot-cols ul { gap: 0; }
+    .foot-cols a { padding-block: 11px; }
+    /* The legal row is its own list and was missed the first time: Privacy and
+       Terms were a 16px line box with nothing around them. */
+    .foot-legal a { padding-block: 10px; }
     .titleblock { grid-template-columns: 1fr; }
     .tb-cell { border-right: none; }
   }

@@ -7,7 +7,7 @@ import { url } from '../lib/url';
 
 const desc =
   `Get a free demo of your own site inside 48 hours. Call ${site.owner} on ${site.phoneDisplay} ` +
-  `or send the details through. Websites for builders and trades in Newcastle and the Hunter.`;
+  `or send the details through. Websites for builders and trades, Newcastle.`;
 
 const contactFaqs = [
   {
@@ -79,7 +79,11 @@ const contactFaqs = [
           </div>
         </div>
 
-        <div class="ct-form">
+        {/* on-light is not decoration here. This panel paints a light ground,
+            and .on-light is the mechanism that re-points --on-dark-soft and the
+            rest at that ground. Without it every label inside kept the grey meant
+            for a dark background and rendered at 1.88:1. */}
+        <div class="ct-form on-light">
           <p class="label form-lbl">Enquiry</p>
           <ContactForm />
         </div>

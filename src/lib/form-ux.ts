@@ -91,6 +91,29 @@ function enhance(form: HTMLFormElement) {
     form.querySelectorAll<Field>('input, select, textarea')
   ).filter((el) => el.type !== 'hidden' && el.name !== 'bot-field');
 
+  const summary = form.querySelector<HTMLElement>('[data-form-summary]');
+  const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const buttonText = button?.textContent ?? '';
+
+  // The count in the summary has to follow the form, not the last submit.
+  // It only ever clears on submit before, so someone who failed validation,
+  // then fixed every field, still had "6 fields need fixing" sitting there in
+  // red with nothing left to fix. Only runs while the summary is already
+  // showing, so nothing nags before the first submit.
+  const refreshSummary = () => {
+    if (!summary || !summary.classList.contains('on')) return;
+    const bad = fields.filter((el) => messageFor(el));
+    if (!bad.length) {
+      summary.classList.remove('on');
+      summary.textContent = '';
+      return;
+    }
+    summary.textContent =
+      bad.length === 1
+        ? 'One field needs fixing before this can send.'
+        : `${bad.length} fields need fixing before this can send.`;
+  };
+
   // Label text drives the message, so the copy stays in the markup where it
   // belongs and never goes stale against a renamed field.
   fields.forEach((el) => {
@@ -99,17 +122,20 @@ function enhance(form: HTMLFormElement) {
       if (lbl?.textContent) el.dataset.label = lbl.textContent.trim().toLowerCase().replace(/[?:]$/, '');
     }
     // Only nag about a field the person has already had a go at.
-    el.addEventListener('blur', () => { if (el.dataset.touched) setError(el, messageFor(el)); });
+    el.addEventListener('blur', () => {
+      if (el.dataset.touched) { setError(el, messageFor(el)); refreshSummary(); }
+    });
     el.addEventListener('input', () => {
       el.dataset.touched = '1';
       if (el.classList.contains('invalid')) setError(el, messageFor(el));
+      refreshSummary();
     });
-    el.addEventListener('change', () => { el.dataset.touched = '1'; setError(el, messageFor(el)); });
+    el.addEventListener('change', () => {
+      el.dataset.touched = '1';
+      setError(el, messageFor(el));
+      refreshSummary();
+    });
   });
-
-  const summary = form.querySelector<HTMLElement>('[data-form-summary]');
-  const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-  const buttonText = button?.textContent ?? '';
 
   form.addEventListener('submit', (e) => {
     const bad: Field[] = [];

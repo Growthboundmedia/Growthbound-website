@@ -14,8 +14,8 @@ import { faqSchema, buildService } from '../lib/schema';
 import { url } from '../lib/url';
 
 const desc =
-  'Growthbound builds lead-generating websites for builders and trades in Newcastle and the Hunter. ' +
-  'Standard build $4,000, half to start and half when you are happy. Free demo of your own site in 48 hours.';
+  'Lead-generating websites for builders and trades in Newcastle. Build $4,000, ' +
+  'half to start and half when you are happy. Free demo in 48 hours.';
 ---
 <Base
   title="Websites for builders and trades | Newcastle | Growthbound"
@@ -138,7 +138,8 @@ const desc =
       />
       <div class="grid grid-3">
         {work.map((w) => (
-          <a class="wcard panel reveal" href={w.href} rel={w.kind === 'demo' ? 'nofollow' : undefined}>
+          <a class="wcard panel reveal" href={w.href} target="_blank"
+            rel={w.kind === 'demo' ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}>
             <p class="wcard-tag" data-kind={w.kind}>
               {w.kind === 'client' ? 'Live client' : 'Concept build'}
             </p>
@@ -372,7 +373,13 @@ const desc =
 
   /* ---- work cards ---- */
   .wcard { display: flex; flex-direction: column; gap: 9px; transition: background var(--fast) var(--ease); }
-  .wcard:hover { background: var(--bone); }
+  /* Left over from the light design, where the card sat on paper and going to
+     --bone was a lift. --bone is now near-white against a near-black page, so
+     hovering flipped the ground and left every line of the card on top of its
+     own colour: 1.0 for the title, 2.08 for the meta, 1.78 for the tag. The
+     hover stays on the dark ground and lifts with the wash the rest of the
+     system already uses. */
+  .wcard:hover { background: var(--hover-wash); border-color: var(--line-strong); }
   /* This block never got the pill treatment the /work rows did, so it was
      still the pre-rewrite version: an amber fill with NO colour of its own, so
      the card's light text sat on it. That washed-out light-on-amber is the

@@ -9,8 +9,8 @@ import { url } from '../lib/url';
 import Photo from '../components/Photo.astro';
 
 const desc =
-  'Sites Growthbound has built for trades in Newcastle: Satori Muay Thai, a live client ranking #2 on Google, ' +
-  'plus concept builds for a builder and a plasterer you can click through end to end.';
+  'Sites Growthbound has built for trades in Newcastle. Satori Muay Thai, a live client ' +
+  'ranking #2 on Google, plus concept builds for a builder and a plasterer.';
 ---
 <Base
   title="Recent work"
@@ -42,7 +42,8 @@ const desc =
       <div class="wrap">
         <div class="wrow-in">
           <figure class="wrow-shot reveal">
-            <a class="frame" href={w.href} rel={w.kind === 'demo' ? 'nofollow' : undefined}>
+            <a class="frame" href={w.href} target="_blank"
+               rel={w.kind === 'demo' ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}>
               <span class="frame-bar" aria-hidden="true">
                 <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
                 <span class="frame-url">{w.shotUrl}</span>
@@ -72,7 +73,8 @@ const desc =
               <a
                 class:list={['btn', i % 2 === 1 ? 'btn-ghost' : 'btn-line']}
                 href={w.href}
-                rel={w.kind === 'demo' ? 'nofollow' : undefined}
+                target="_blank"
+                rel={w.kind === 'demo' ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
               >Open the site &rarr;</a>
             </div>
           </div>

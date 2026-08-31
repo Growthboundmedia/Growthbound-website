@@ -200,6 +200,11 @@ body::before {
   --on-dark:      var(--on-light);
   --on-dark-soft: var(--on-light-soft);
   --coal:         var(--band-panel);
+  /* --carbon was the one raised surface this block forgot. On a light band the
+     browser-frame chrome kept its dark grey while the URL inside it inverted to
+     the grey meant for a light ground, leaving that text at 2.30:1. Every other
+     raised surface in the set already re-points; this one now does too. */
+  --carbon:       var(--linen);
   --line:         var(--line-light);
   --line-soft:    var(--line-light-soft);
   --line-strong:  var(--line-light-strong);
@@ -215,10 +220,19 @@ body::before {
   margin-bottom: 22px;
   flex-wrap: wrap;
 }
-/* The label and the dim each hold together, but the row itself must be allowed
-   to wrap. It was nowrap on the container as well, so on a phone a long eyebrow
-   ran off the edge and gave the whole page a horizontal scroll. */
+/* The label holds together, but the row must be allowed to wrap. It was nowrap
+   on the container as well, so on a phone a long eyebrow ran off the edge and
+   gave the whole page a horizontal scroll. */
 .eyebrow > span { white-space: nowrap; }
+
+/* The dim is the exception. It carries the long strings, and at 0.18em tracking
+   in uppercase mono "Measured 25 July to 24 August 2026" is 483px wide: wider
+   than a phone, and nowrap meant it could not break, so /work and /about still
+   scrolled sideways after the row itself was allowed to wrap. */
+/* `.eyebrow > span` is (0,1,1) and a bare .head-dim is (0,1,0), so the first
+   attempt at this lost to the very rule it needed to beat. Scoped to the
+   eyebrow it is (0,2,0) and wins. */
+.eyebrow > .head-dim { white-space: normal; }
 .eyebrow::before {
   content: ''; width: 28px; height: 1px; background: var(--amber-text); flex: none;
 }
