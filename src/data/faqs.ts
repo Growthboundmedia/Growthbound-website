@@ -23,6 +23,10 @@ export const generalFaqs = [
     a: 'Yes. $1,500 to start and $250 a month for ten months. That is the same $4,000, not a finance deal with interest on it, and hosting is $90 a month on top the same as it is for anyone else. While it is being paid off the site is licensed to you rather than owned by you, the same way a ute on finance is yours to drive but not yours to sell. When the last payment lands it is yours outright. Your domain is yours the whole time either way.',
   },
   {
+    q: 'Can I get a website cheaper somewhere else?',
+    a: 'Yes, easily. There are template builders for a few hundred dollars and some are free. Buy cheap, buy twice though. A cheap site either gets replaced properly later, so you have paid for both, or it sits there losing you more work than you ever saved. You are not paying me for a website to exist. You are paying for one that brings in jobs.',
+  },
+  {
     q: 'Will people actually find it on Google?',
     a: 'The site is built to rank from day one: your services and areas each get their own page, the technical setup is done properly, and the schema tells Google exactly what you do and where. Nobody honest can promise you a position, because Google decides that. What I can promise is that the groundwork is done right, and on the Growth plan I keep working on it every month.',
   },

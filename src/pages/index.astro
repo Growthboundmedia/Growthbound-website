@@ -254,6 +254,17 @@ const desc =
         ))}
       </div>
 
+      {/* The other objection. The case section answers "is a website worth
+          $4,000"; this one answers "could I just get a cheap one", which is a
+          different thought and fires here, at the number. No timeframe on the
+          replacement claim on purpose: "inside two years" sounds researched and
+          is not. */}
+      <p class="price-cheap">
+        <span>Buy cheap, buy twice.</span> You already know that with tools. A cheap website
+        goes one of two ways. Either you replace it properly later and you have paid for
+        both, or it sits there quietly losing you more work than you ever saved.
+      </p>
+
       <p class="price-foot">
         Hosting and security is an ongoing cost, not part of the build. It starts the day
         the site goes live. Growth replaces it rather than stacking on top of it.
@@ -497,7 +508,19 @@ const desc =
     content: ''; position: absolute; left: 0; top: .55em;
     width: 9px; height: 9px; background: var(--amber);
   }
-  .price-foot { margin-top: 28px; font-size: 14.5px; color: var(--on-dark-soft); }
+  .price-cheap {
+    margin-top: clamp(30px, 4vw, 48px);
+    padding-top: clamp(24px, 3vw, 34px);
+    border-top: 1px solid var(--line);
+    font-size: clamp(17px, 1.9vw, 21px); line-height: 1.5;
+    max-width: 62ch; color: var(--on-dark);
+  }
+  .price-cheap span {
+    font-variation-settings: 'wdth' 110, 'wght' 700;
+    color: var(--amber-text);
+  }
+
+  .price-foot { margin-top: 22px; font-size: 14.5px; color: var(--on-dark-soft); }
 
   /* ---- steps ---- */
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
