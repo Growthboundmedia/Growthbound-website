@@ -2,32 +2,40 @@
    GROWTHBOUND — tokens.
    The ONLY file in this site allowed to contain a hex value.
 
-   THE DIRECTION, AND WHY IT CHANGED.
-   The first pass was a light drafting-sheet: paper grey, graph grid, no
-   photography. It was distinctive and it was not attractive, which is a
-   failure, not a trade-off. Nothing to look at is fatal on the site of a man
-   whose product is how things look.
+   *** THIS IS THE EXPERIMENT: STEEL + SIGNAL ORANGE ***
+   Branch try/steel-orange. The locked palette is graphite + amber on
+   rebuild/plans-table, written down in full in PALETTES.md. `git checkout
+   rebuild/plans-table` puts it back byte for byte.
 
-   So: rich near-black, full-bleed photography, big confident type, and the
-   work itself carried at full size. The one idea worth keeping from the first
-   pass is amber, because amber on near-black is the trades without being a
-   hi-vis vest, and it measures 10.9:1.
+   THE IDEA. Not a tweak to the highlight colour. The ground moves from warm
+   graphite to cool blue-black and the accent from amber to a hi-vis safety
+   orange, so the temperature of the whole page changes. Orange sits opposite
+   blue, so it pops harder against this ground than amber did against grey.
+   Structure, type, spacing and layout are untouched: literally only this file
+   differs from the locked build.
 
    CONTRAST, COMPUTED NOT ESTIMATED (AA needs 4.5:1 body, 3:1 large):
-     --bone       #F2F0EC on --ink   #0E1011  ->  16.76:1  PASS
-     --ash        #A8A9A5 on --ink   #0E1011  ->   8.07:1  PASS
-     --amber      #F0A82C on --ink   #0E1011  ->   9.39:1  PASS
-     --amber      #F0A82C on --coal  #16191A  ->   8.71:1  PASS
-     --ink        #0E1011 on --amber #F0A82C  ->   9.39:1  PASS  (button face)
-     --ink        #0E1011 on --bone  #F2F0EC  ->  16.76:1  PASS  (light sections)
-     --slate      #575A57 on --bone  #F2F0EC  ->   6.14:1  PASS
-     --amber-deep #8A5E04 on --bone  #F2F0EC  ->   5.01:1  PASS
-     --red        #DF603A on --ink   #0E1011  ->   5.33:1  PASS
-     --red-deep   #B13A16 on --bone  #F2F0EC  ->   5.29:1  PASS
+     --bone         #EEF1F3 on --ink   #0B1219  ->  16.61:1  PASS
+     --on-dark-soft #9AA7B2 on --ink   #0B1219  ->   7.66:1  PASS
+     --on-dark-soft #9AA7B2 on --coal  #121B24  ->   7.07:1  PASS
+     --amber        #FF6A2B on --ink   #0B1219  ->   6.59:1  PASS
+     --amber        #FF6A2B on --coal  #121B24  ->   6.08:1  PASS
+     --ink          #0B1219 on --amber #FF6A2B  ->   6.59:1  PASS  (button face)
+     --ink          #0B1219 on --bone  #EEF1F3  ->  16.61:1  PASS
+     --on-light-soft#4E5A66 on --bone  #EEF1F3  ->   6.22:1  PASS
+     --on-light-soft#4E5A66 on --linen #DFE4E8  ->   5.51:1  PASS
+     --amber-deep   #9A3D06 on --bone  #EEF1F3  ->   6.08:1  PASS
+     --amber-deep   #9A3D06 on --linen #DFE4E8  ->   5.39:1  PASS
+     --red          #FF9DB0 on --ink   #0B1219  ->   9.60:1  PASS
+     --red-deep     #B3213A on --bone  #EEF1F3  ->   5.79:1  PASS
+     --red-deep     #B3213A on --linen #DFE4E8  ->   5.13:1  PASS
 
-   Errors need TWO reds. One value cannot clear 4.5:1 on both a near-black and
-   a warm off-white; the first attempt (#D14A32) measured 4.30 and 3.90 and
-   would have shipped an unreadable error message on every surface.
+   THE ERROR RED IS A PINK ON PURPOSE. #FF6B7F was the obvious pick and it
+   passes contrast at 6.87, but it measured 1.04 against the accent: the two
+   separate by hue alone, so an error would read as a highlight to anyone with
+   a colour vision deficiency. #FF9DB0 is 1.46 from the accent, so it separates
+   by brightness as well. When the accent is already a red-orange, the error
+   colour has to work harder than usual.
    ========================================================================= */
 
 :root {
@@ -35,36 +43,37 @@
      Not pure black. #0E1011 has a trace of blue-green in it, which is what
      stops a dark site reading as a switched-off screen and starts it reading
      as a photograph printed on good stock. */
-  --ink:    #0E1011;   /* the page */
-  --coal:   #16191A;   /* a raised surface, a card, a panel */
-  --carbon: #1E2223;   /* a hover, a hairline fill, an inset */
+  --ink:    #0B1219;   /* the page. Blue-black rather than warm graphite. */
+  --coal:   #121B24;   /* a raised surface, a card, a panel */
+  --carbon: #1A2530;   /* a hover, a hairline fill, an inset */
 
   /* ---- light sections ---- */
-  --bone:   #F2F0EC;   /* warm off-white. Never #FFF: it glares next to the dark. */
-  --linen:  #E8E5DF;   /* a second light surface */
+  --bone:   #EEF1F3;   /* cool off-white, to sit with the blue ground. Never #FFF. */
+  --linen:  #DFE4E8;   /* a second light surface */
 
   /* ---- text ---- */
-  --on-dark:      #F2F0EC;
-  --on-dark-soft: #A8A9A5;
-  --on-light:     #0E1011;
-  --on-light-soft:#575A57;
+  --on-dark:      #EEF1F3;
+  --on-dark-soft: #9AA7B2;
+  --on-light:     #0B1219;
+  --on-light-soft:#4E5A66;
 
   /* ---- accent ----
-     One colour. Amber, because it is high-vis without being a costume, it is
-     legible on the dark ground at 10.3:1, and it is nobody else's green. */
-  --amber:      #F0A82C;   /* the FILL: buttons, bullets, flags. Works on either ground. */
-  --amber-text: #F0A82C;   /* the TEXT amber. Swapped by the light theme below. */
-  --amber-deep: #8A5E04;   /* amber dark enough to read on a light ground */
-  --red:        #DF603A;   /* form errors ON DARK. Nothing decorative. */
-  --red-deep:   #B13A16;   /* form errors ON LIGHT. */
+     Signal orange. Kept on the --amber token names so this stays a one-file
+     swap: renaming them would put a hex-free change into forty other files and
+     stop this being reversible with a checkout. */
+  --amber:      #FF6A2B;   /* the FILL: buttons, bullets, flags. Works on either ground. */
+  --amber-text: #FF6A2B;   /* the TEXT accent. Swapped by .on-light below. */
+  --amber-deep: #9A3D06;   /* dark enough to read on a light ground */
+  --red:        #FF9DB0;   /* form errors ON DARK. Pink, so it is not the accent. */
+  --red-deep:   #B3213A;   /* form errors ON LIGHT. */
 
   /* ---- hairlines ---- */
-  --line:        rgba(242, 240, 236, 0.14);
-  --line-soft:   rgba(242, 240, 236, 0.07);
-  --line-strong: rgba(242, 240, 236, 0.30);
-  --line-light:        rgba(14, 16, 17, 0.14);
-  --line-light-soft:   rgba(14, 16, 17, 0.07);
-  --line-light-strong: rgba(14, 16, 17, 0.32);
+  --line:        rgba(238, 241, 243, 0.14);
+  --line-soft:   rgba(238, 241, 243, 0.07);
+  --line-strong: rgba(238, 241, 243, 0.30);
+  --line-light:        rgba(11, 18, 25, 0.14);
+  --line-light-soft:   rgba(11, 18, 25, 0.07);
+  --line-light-strong: rgba(11, 18, 25, 0.32);
 
   /* the raised panel INSIDE an inverted band */
   --band-panel: rgba(255, 255, 255, 0.66);
@@ -74,9 +83,9 @@
      than a folder of stock. Top-weighted, because the type sits high. */
   --scrim: linear-gradient(
     180deg,
-    rgba(14, 16, 17, 0.86) 0%,
-    rgba(14, 16, 17, 0.62) 42%,
-    rgba(14, 16, 17, 0.90) 100%
+    rgba(11, 18, 25, 0.86) 0%,
+    rgba(11, 18, 25, 0.62) 42%,
+    rgba(11, 18, 25, 0.90) 100%
   );
 
   /* ---- type ----
@@ -102,11 +111,11 @@
   /* ---- translucent surfaces ----
      A sticky nav and an inset panel need alpha, not a flat colour, or they
      stop reading as glass. Tokenised so the light theme flips them too. */
-  --nav-bg:        rgba(14, 16, 17, 0.72);
-  --nav-bg-solid:  rgba(14, 16, 17, 0.92);
+  --nav-bg:        rgba(11, 18, 25, 0.72);
+  --nav-bg-solid:  rgba(11, 18, 25, 0.92);
   --inset:         rgba(0, 0, 0, 0.22);
   --raise:         rgba(255, 255, 255, 0.62);
-  --hover-wash:    rgba(242, 240, 236, 0.06);
+  --hover-wash:    rgba(238, 241, 243, 0.06);
 
   /* ---- motion ---- */
   --ease: cubic-bezier(0.22, 0.68, 0.24, 1);
