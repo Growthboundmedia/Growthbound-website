@@ -114,10 +114,46 @@ it separates by brightness too.
 
 ---
 
+## FOREST + HI-VIS — the second alternative, on branch `try/forest-hivis`
+
+The steel version was still a neutral dark page with a warm accent, which is the
+same site wearing a different hat. This one changes both halves: the ground
+stops being a neutral and becomes an actual colour, and the accent leaves the
+amber/orange family entirely.
+
+| Token | Graphite + amber | Forest + hi-vis |
+|---|---|---|
+| `--ink` | `#0E1011` | `#0A130E` |
+| `--coal` | `#16191A` | `#101C15` |
+| `--carbon` | `#1E2223` | `#18271E` |
+| `--bone` | `#F2F0EC` | `#F0EFE6` |
+| `--linen` | `#E8E5DF` | `#E2E2D6` |
+| `--on-dark` | `#F2F0EC` | `#F0EFE6` |
+| `--on-dark-soft` | `#A8A9A5` | `#9DAA9F` |
+| `--on-light` | `#0E1011` | `#0A130E` |
+| `--on-light-soft` | `#575A57` | `#515C53` |
+| `--amber` | `#F0A82C` | `#C4F04A` |
+| `--amber-deep` | `#8A5E04` | `#4F6410` |
+| `--red` | `#DF603A` | `#FF8A7A` |
+| `--red-deep` | `#B13A16` | `#B3301F` |
+
+The locked palette's reasoning for amber was "the trades without being a hi-vis
+vest". This one takes the opposite bet: hi-vis lime **is** the trades, more
+literally than amber ever was, and on a deep green ground it is the loudest
+thing on the page at 14.3:1 without ever reading as a warning.
+
+The error colour is easy here for once. Coral against lime separates by hue and
+by brightness (1.74 apart), so nobody has to tell green from orange to know a
+field is wrong. Signal orange had to fight for that separation; here it falls
+out of the choice of accent.
+
+---
+
 ## Switching
 
 ```bash
-git checkout try/steel-orange      # see the alternative
+git checkout try/steel-orange      # cool blue-black + signal orange
+git checkout try/forest-hivis      # deep forest green + hi-vis lime
 git checkout rebuild/plans-table   # back to graphite + amber, byte for byte
 ```
 
