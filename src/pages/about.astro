@@ -133,7 +133,7 @@ const road = [
           ))}
         </ol>
 
-        <figure class="trench on-light reveal">
+        <figure class="trench reveal">
           <Photo
             src={trench}
             alt="A concrete stormwater pipe laid in a shored trench, with an excavator at the head of it"
@@ -217,30 +217,53 @@ const road = [
     margin-top: 12px; font-size: 10px; letter-spacing: .14em;
     text-transform: uppercase; color: var(--on-dark-soft);
   }
+  /* align-items: stretch, not start. The figure fills the grid row, so the photo
+     runs the exact height of the timeline beside it and the two align top and
+     bottom. No frame: at full height the linen border was drawing a box around
+     something that should read as a column of the page, not an inset. */
+  .road-grid {
+    display: grid; grid-template-columns: 1fr 340px;
+    gap: clamp(32px, 5vw, 72px); align-items: stretch;
+  }
+  .trench {
+    position: relative; margin: 0; overflow: hidden;
+    border-radius: var(--radius);
+  }
+  .trench :global(picture) { display: block; height: 100%; }
+  .trench :global(img) {
+    width: 100%; height: 100%; display: block;
+    object-fit: cover; object-position: center 45%;
+  }
+  /* Caption sits on the photo so it does not add height past the timeline and
+     break the alignment that is the whole point. Its own small gradient rather
+     than a full scrim, because only the bottom strip needs to carry text. */
+  .trench figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+    padding: 34px 16px 14px;
+    font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--on-dark);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--ink) 55%, transparent) 45%,
+      color-mix(in srgb, var(--ink) 88%, transparent) 100%
+    );
+  }
+
   @media (max-width: 900px) {
     .ab-grid, .road-grid { grid-template-columns: 1fr; }
     .portrait, .trench { max-width: 300px; }
+    /* Stacked, there is no timeline beside it to match, so the stretch that
+       makes this work on desktop has nothing to resolve against and the image
+       ran to 1466px. Give it its own ratio instead. */
+    .trench { aspect-ratio: 5 / 4; }
+    .trench :global(picture) { height: 100%; }
+    .trench :global(img) { height: 100%; object-fit: cover; }
   }
 
   /* Identical treatment to .portrait on purpose. Two photos on this page, same
      column, same frame, same caption style: that is what makes the second one
      look placed rather than inserted. */
-  .road-grid {
-    display: grid; grid-template-columns: 1fr 340px;
-    gap: clamp(32px, 5vw, 72px); align-items: start;
-  }
-  .trench {
-    border: 1px solid var(--line-light);
-    background: var(--linen);
-    padding: 12px;
-    margin: 0;
-  }
-  .trench :global(img) { width: 100%; height: auto; display: block; }
-  .trench figcaption {
-    margin-top: 12px; font-size: 10px; letter-spacing: .14em;
-    text-transform: uppercase; color: var(--on-dark-soft);
-  }
-
   .road { display: grid; }
   .road-row {
     display: grid; grid-template-columns: 140px 1fr; gap: 24px;
