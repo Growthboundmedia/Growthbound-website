@@ -13,13 +13,14 @@ import { url } from '../lib/url';
 // Set to the photo path once there is one in public/assets. Empty renders the
 // drawn placeholder, which is a real design state, not a broken image.
 //
-// This is cropped from a phone photo (IMG_5914). The crop is deliberate rather
-// than framing: the original is a pub shot with beer taps behind his head and
-// another person's arm across the right third, and both sit at x>939 in the
-// source, so the crop stops at 955 to put them out of frame instead of just
-// smaller. Usable width is 515px, which is why `sizes` below is honest about
-// how small this actually renders. Replace with a real portrait when there is
-// one and none of this matters.
+// Cropped 5:6 from a cleaned-up version of a phone photo, with the other
+// people and the glasses on the bar removed. 745x894, which clears the 628px a
+// 314px box needs at DPR 2, so it renders properly rather than softly.
+//
+// The first pass used the raw original and had to crop hard to get the beer
+// taps and a stranger's arm out of frame, which cost most of the resolution.
+// Worth keeping in mind if this is ever re-cropped: the framing is comfortable
+// because there are pixels to spare now, not because the crop got clever.
 const portrait = '/assets/portrait-daniel.jpg';
 
 const desc =
