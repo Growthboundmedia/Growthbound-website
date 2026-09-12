@@ -104,17 +104,6 @@ const road = [
 
   <section class="section">
     <div class="wrap">
-      <figure class="onsite on-light reveal">
-        <Photo
-          src={onSite}
-          alt={`${site.owner} on a job site in work gear, running conduit along a fascia`}
-          sizes="(max-width: 900px) 92vw, 760px"
-        />
-        <figcaption class="mono">
-          Me on a site. Most people building websites for tradies cannot say that.
-        </figcaption>
-      </figure>
-
       <SheetHead
         no="01"
         label="How I got here"
@@ -132,6 +121,15 @@ const road = [
           </li>
         ))}
       </ol>
+
+      <figure class="onsite on-light reveal">
+        <Photo
+          src={onSite}
+          alt={`${site.owner} on a job site in work gear, running conduit along a fascia`}
+          sizes="(max-width: 560px) 76vw, 300px"
+        />
+        <figcaption class="mono">Me on the tools. Not a figure of speech.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -212,19 +210,22 @@ const road = [
     .portrait { max-width: 300px; }
   }
 
-  /* Capped rather than full bleed on purpose. It is a phone selfie, and blown
-     up across the page its roughness stops reading as honest and starts reading
-     as a mistake. At this size it is evidence sitting next to the claim. */
+  /* Small, and after the list rather than before it. At 760px across the top of
+     the section a wide-angle phone selfie dominates the page and its roughness
+     reads as a mistake instead of as proof. At 300px, sitting under the career
+     list it is evidence for, it is a footnote that happens to be photographic.
+     The caption got shorter for the same reason: a sentence wraps to four lines
+     at this width in 10px mono. */
   .onsite {
-    max-width: 760px;
-    margin: 0 0 clamp(40px, 6vw, 76px);
+    max-width: 300px;
+    margin: clamp(30px, 4vw, 48px) 0 0;
     border: 1px solid var(--line-light);
     background: var(--linen);
-    padding: 12px;
+    padding: 10px;
   }
   .onsite :global(img) { width: 100%; height: auto; display: block; }
   .onsite figcaption {
-    margin-top: 12px; font-size: 10px; letter-spacing: .14em;
+    margin-top: 10px; font-size: 9.5px; letter-spacing: .12em;
     text-transform: uppercase; color: var(--on-dark-soft);
   }
 
