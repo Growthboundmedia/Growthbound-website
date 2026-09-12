@@ -108,15 +108,6 @@ const road = [
     </div>
   </section>
 
-  <figure class="trench-band reveal">
-    <Photo
-      src={trench}
-      alt="A concrete stormwater pipe laid in a shored trench, with an excavator at the head of it"
-      sizes="100vw"
-    />
-    <figcaption class="wrap mono">Before this. Shored trench, stormwater main, someone else's job.</figcaption>
-  </figure>
-
   <section class="section">
     <div class="wrap">
       <SheetHead
@@ -125,17 +116,32 @@ const road = [
         dim="The short version"
         title="Not a straight line."
       />
-      <ol class="road">
-        {road.map((r) => (
-          <li class="road-row reveal">
-            <span class="road-when mono">{r.when}</span>
-            <div>
-              <h3>{r.what}</h3>
-              <p>{r.body}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+      {/* Same two-column rhythm as the intro above: words left, one framed
+          image in the right-hand column. Standing on its own between sections
+          the photo was a slab that interrupted the page. In the column the
+          portrait already established, it is part of the composition. */}
+      <div class="road-grid">
+        <ol class="road">
+          {road.map((r) => (
+            <li class="road-row reveal">
+              <span class="road-when mono">{r.when}</span>
+              <div>
+                <h3>{r.what}</h3>
+                <p>{r.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <figure class="trench on-light reveal">
+          <Photo
+            src={trench}
+            alt="A concrete stormwater pipe laid in a shored trench, with an excavator at the head of it"
+            sizes="(max-width: 900px) 276px, 316px"
+          />
+          <figcaption class="mono">Shored trench, stormwater main</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -212,33 +218,27 @@ const road = [
     text-transform: uppercase; color: var(--on-dark-soft);
   }
   @media (max-width: 900px) {
-    .ab-grid { grid-template-columns: 1fr; }
-    .portrait { max-width: 300px; }
+    .ab-grid, .road-grid { grid-template-columns: 1fr; }
+    .portrait, .trench { max-width: 300px; }
   }
 
-  /* Full bleed, and the --scrim token finally gets used for what it was declared
-     for. A framed snapshot sitting in the text column is what looked bolted on:
-     this page is photography-led like the rest of the site, or it is not, and
-     half-committing is what reads as forced. Fixed height with object-fit cover
-     so a tall phone photo crops to a band instead of dictating the layout. */
-  .trench-band {
-    position: relative;
+  /* Identical treatment to .portrait on purpose. Two photos on this page, same
+     column, same frame, same caption style: that is what makes the second one
+     look placed rather than inserted. */
+  .road-grid {
+    display: grid; grid-template-columns: 1fr 340px;
+    gap: clamp(32px, 5vw, 72px); align-items: start;
+  }
+  .trench {
+    border: 1px solid var(--line-light);
+    background: var(--linen);
+    padding: 12px;
     margin: 0;
-    height: clamp(260px, 38vw, 460px);
-    overflow: hidden;
   }
-  .trench-band :global(picture),
-  .trench-band :global(img) {
-    width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 58%;
-  }
-  .trench-band::after {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: var(--scrim);
-  }
-  .trench-band figcaption {
-    position: absolute; left: 0; right: 0; bottom: clamp(16px, 2.4vw, 26px);
-    z-index: 1; color: var(--on-dark);
-    font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  .trench :global(img) { width: 100%; height: auto; display: block; }
+  .trench figcaption {
+    margin-top: 12px; font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--on-dark-soft);
   }
 
   .road { display: grid; }
