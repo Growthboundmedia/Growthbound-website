@@ -11,3 +11,7 @@ dist/
 # Generated image derivatives. scripts/optimise-images.mjs rebuilds these from
 # the source files in public/assets before every build.
 public/assets/opt/
+
+# Astro's generated type cache. Regenerated on every build; committing it means
+# a diff on every machine that runs the site.
+.astro/
