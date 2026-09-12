@@ -23,6 +23,14 @@ import { url } from '../lib/url';
 // because there are pixels to spare now, not because the crop got clever.
 const portrait = '/assets/portrait-daniel.jpg';
 
+// The second photo, and it is doing a different job. The portrait shows who you
+// are dealing with; this one is evidence. The page's whole argument is "most
+// people building websites for tradies have never been on a site", and until
+// now nothing on the page corroborated that. It is a rough phone selfie with
+// his face half behind a mask, which is exactly why it cannot be the portrait
+// and exactly why it works as proof: nobody stages one of these.
+const onSite = '/assets/daniel-on-site.jpg';
+
 const desc =
   'Daniel runs Growthbound out of Newcastle. Pipe laying, then real estate marketing, ' +
   'then a coal port. He has worked the tools and done the marketing.';
@@ -96,6 +104,17 @@ const road = [
 
   <section class="section">
     <div class="wrap">
+      <figure class="onsite on-light reveal">
+        <Photo
+          src={onSite}
+          alt={`${site.owner} on a job site in work gear, running conduit along a fascia`}
+          sizes="(max-width: 900px) 92vw, 760px"
+        />
+        <figcaption class="mono">
+          Me on a site. Most people building websites for tradies cannot say that.
+        </figcaption>
+      </figure>
+
       <SheetHead
         no="01"
         label="How I got here"
@@ -191,6 +210,22 @@ const road = [
   @media (max-width: 900px) {
     .ab-grid { grid-template-columns: 1fr; }
     .portrait { max-width: 300px; }
+  }
+
+  /* Capped rather than full bleed on purpose. It is a phone selfie, and blown
+     up across the page its roughness stops reading as honest and starts reading
+     as a mistake. At this size it is evidence sitting next to the claim. */
+  .onsite {
+    max-width: 760px;
+    margin: 0 0 clamp(40px, 6vw, 76px);
+    border: 1px solid var(--line-light);
+    background: var(--linen);
+    padding: 12px;
+  }
+  .onsite :global(img) { width: 100%; height: auto; display: block; }
+  .onsite figcaption {
+    margin-top: 12px; font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--on-dark-soft);
   }
 
   .road { display: grid; }
