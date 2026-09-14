@@ -48,15 +48,27 @@ const here = Astro.url.pathname.replace(/\/$/, '');
 </header>
 
 <style>
+  /* The glass lives on ::before, NOT on .nav itself. backdrop-filter makes an
+     element the containing block for every position: fixed descendant, so with
+     it on .nav the mobile menu's `position: fixed; inset: 68px 0 0 0` resolved
+     against the header instead of the viewport and the open menu was a 52px
+     strip: the toggle worked, the menu just had nowhere to be. Moving the
+     filter to a pseudo-element behind the content keeps the exact same look
+     and gives the menu the viewport back. */
   .nav {
     position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--fast) var(--ease);
+  }
+  .nav::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
     background: var(--nav-bg);
     backdrop-filter: saturate(150%) blur(14px);
     -webkit-backdrop-filter: saturate(150%) blur(14px);
-    border-bottom: 1px solid transparent;
-    transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+    transition: background var(--fast) var(--ease);
   }
-  .nav.scrolled { border-bottom-color: var(--line); background: var(--nav-bg-solid); }
+  .nav.scrolled { border-bottom-color: var(--line); }
+  .nav.scrolled::before { background: var(--nav-bg-solid); }
 
   .nav-in {
     max-width: var(--wide); margin-inline: auto;
