@@ -169,7 +169,7 @@ export const proof = {
   clientUrl: 'https://www.smtgym.com',
   clientLabel: 'Muay Thai gym, Newcastle CBD',
   measured: '25 July to 24 August 2026',
-  headline: '#2 on Google for "muay thai Newcastle"',
+  headline: 'Climbed to #2 on Google for "muay thai Newcastle"',
   stats: [
     { figure: '768', unit: 'visitors a month', note: 'Just under half of them straight off Google search.' },
     { figure: '~2,000', unit: 'page views a month', note: 'From one local gym, in one city.' },

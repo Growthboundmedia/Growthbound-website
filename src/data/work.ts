@@ -39,13 +39,13 @@ export const work: readonly WorkItem[] = [
     href: 'https://www.smtgym.com',
     live: true,
     blurb:
-      'Built the site, ran the ads and organised the opening. It now ranks second on Google for muay thai Newcastle and books people in without anyone answering a phone.',
+      'Built the site, ran the ads and organised the opening. It climbed to second on Google for muay thai Newcastle and books people in without anyone answering a phone.',
     points: [
-      'Second on Google for the main search term',
+      'Climbed to second on Google for muay thai Newcastle',
       '768 visitors a month, just under half straight off search',
       '260 people a month check the prices on their own',
     ],
-    result: '#2 on Google for "muay thai Newcastle"',
+    result: 'Climbed to #2 for "muay thai Newcastle"',
   },
   {
     slug: 'hammond',

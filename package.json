@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run images && astro build",
+    "build": "npm run claims && npm run images && astro build",
     "preview": "astro preview",
     "images": "node scripts/optimise-images.mjs",
-    "favicons": "node scripts/favicons.mjs"
+    "favicons": "node scripts/favicons.mjs",
+    "claims": "bash ../../scripts/claims-gate.sh live-site"
   },
   "dependencies": {
     "astro": "^4.16.18"
