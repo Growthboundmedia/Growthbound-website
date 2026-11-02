@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "images": "node scripts/optimise-images.mjs",
     "favicons": "node scripts/favicons.mjs",
-    "claims": "bash ../../scripts/claims-gate.sh live-site"
+    "claims": "bash scripts/claims.sh"
   },
   "dependencies": {
     "astro": "^4.16.18"
