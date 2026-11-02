@@ -38,6 +38,9 @@ const updated = '2 November 2026';
 </Base>
 
 <style>
-  .prose { max-width: 68ch; }
+  /* The other legal pages open with a .short lead block, whose padding is what
+     separates the heading from the body. This page is one paragraph, so it has
+     to make that gap itself. */
+  .prose { max-width: 68ch; margin-top: 22px; }
   .prose p { color: var(--on-dark-soft); margin-bottom: 14px; }
 </style>
