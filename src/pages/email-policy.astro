@@ -1,0 +1,43 @@
+---
+// Published 2 November 2026 for a SURBL delisting request: growthboundmedia.com
+// was listed and the sending inboxes on it are benched until it clears.
+//
+// The copy is Daniel's, word for word, and is a statement about how he sends.
+// Do not reword it to sound better. If how he sends ever changes, this changes
+// with it, because the page is only worth anything while it is true.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+const updated = '2 November 2026';
+---
+<Base
+  title="Email Policy"
+  description={`How ${site.legalName} sends business correspondence, and how to report a concern.`}
+  path="/email-policy"
+>
+  <section class="section legal">
+    <div class="wrap">
+      <p class="eyebrow label">
+        <span>Email Policy</span>
+        <span class="head-dim">&middot; Updated {updated}</span>
+      </p>
+      <h1>Email Policy</h1>
+      <div class="prose">
+        <p>
+          Growthbound does not advertise this website or growthboundmedia.com through
+          unsolicited bulk messaging. Any outreach we send is individual, personally
+          written business correspondence to publicly published business contact
+          addresses, in accordance with the Australian Spam Act 2003. Every message
+          identifies the sender and provides direct contact details. Any recipient who
+          asks not to be contacted is permanently suppressed. We do not use purchased
+          lists, and no affiliate or third party sends messages on our behalf. To report
+          a concern: <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose { max-width: 68ch; }
+  .prose p { color: var(--on-dark-soft); margin-bottom: 14px; }
+</style>
